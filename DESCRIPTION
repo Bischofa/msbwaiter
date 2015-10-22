@@ -1,0 +1,15 @@
+Package: msbwaiter
+Type: Package
+Title: Interacting with the MS Bioscreen API
+Version: 0.1
+Depends: httr,
+         jsonlite
+Suggests: testthat
+Date: 2015-10-16
+Authors@R: c(person("Alisha", "Agrawal", email = "alisha.agrawal@ucsf.edu", role = c("aut")),
+             person("Antoine", "Lizee", email = "antoine.lizee@ucsf.edu", role = c("cre")))
+Description: This package allows the user to interact with the MS Bioscreen API. The tools in this package
+             allow the user to fetch subjects, attacks, treatments, and visits data from the bioscreen. The user
+             will also be able to update and upload data in the bioscreen.
+License: CC0
+LazyData: TRUE
