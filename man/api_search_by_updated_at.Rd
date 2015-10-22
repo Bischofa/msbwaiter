@@ -4,13 +4,15 @@
 \alias{api_search_by_updated_at}
 \title{Search MS Bioscreen data by when it was updated}
 \usage{
-api_search_by_updated_at(updated_at = "2015-09-24 00:00:00",
-  endpoint = "subjects",
+api_search_by_updated_at(updated_at_date = "2015-09-24",
+  updated_at_time = "00:00:00", endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE)
 }
 \arguments{
-\item{updated_at}{time stamp in format "yyy-mm-dd hh:mm:ss".}
+\item{updated_at_date}{date stamp in format "yyy-mm-dd".}
+
+\item{updated_at_time}{time stamp in format "hh:mm:ss".}
 
 \item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
 

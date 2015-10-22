@@ -1,15 +1,13 @@
 library(msbwaiter)
 context("Testing return_status function")
 
-# initial parameters
-url = "https://msbioscreen-uat.herokuapp.com/api/v1/subjects"
-
 # tests
-test_that("return_status...", {
-  results_per_page = 3
-  test_response_data = api_do_action(action = GET, url = url, results_per_page = results_per_page)
-  expect_equal(nrow(response_to_data_frame(test_response_data)), results_per_page)
-  results_per_page = 56
-  test_response_data = api_do_action(action = GET, url = url, results_per_page = results_per_page)
-  expect_equal(nrow(response_to_data_frame(test_response_data)), results_per_page)
+test_that("TRUE is returned when successful HTTP request is made", {
+  test_response_data = api_do_action(action = GET, url =  "https://msbioscreen-uat.herokuapp.com/api/v1/subjects", results_per_page = 3)
+  expect_equal(return_status(test_response_data, print_when_ok = ""), TRUE)
+})
+
+test_that("FALSE is returned when successful HTTP request is made", {
+  test_response_data = api_do_action(action = GET, url =  "https://msbioscreen-uat.herokuapp.com/api/v1/blahblah", results_per_page = 3)
+  expect_equal(return_status(test_response_data), FALSE)
 })

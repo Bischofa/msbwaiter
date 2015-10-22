@@ -12,7 +12,7 @@ test_that("response_to_data_frame converts JSON objects to a data frame with cor
   results_per_page = 3
   test_response_data = api_do_action(action = GET, url = url, results_per_page = results_per_page)
   expect_equal(nrow(response_to_data_frame(test_response_data)), results_per_page)
-  results_per_page = 56
+  results_per_page = 24
   test_response_data = api_do_action(action = GET, url = url, results_per_page = results_per_page)
   expect_equal(nrow(response_to_data_frame(test_response_data)), results_per_page)
 })

@@ -3,15 +3,19 @@
 #' \code{api_search_by_epicid} searches bioscreen for all entries updated on or after specified \code{updated_at} and returns these entries.
 #'
 #' @inheritParams api_check_data
-#' @param updated_at time stamp in format "yyy-mm-dd hh:mm:ss".
+#' @param updated_at_date date stamp in format "yyy-mm-dd".
+#' @param updated_at_time time stamp in format "hh:mm:ss".
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},
 #' \code{\link{api_delete}}, \code{\link{api_get}}, \code{\link{api_search_by_epicid}}
 
 
-api_search_by_updated_at = function(updated_at = "2015-09-24 00:00:00", endpoint = "subjects",
+api_search_by_updated_at = function(updated_at_date = "2015-09-24", updated_at_time = "00:00:00",
+                                    endpoint = "subjects",
                                     base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                                     token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE){
+
+  updated_at = paste(updated_at_date, updated_at_time)
 
   if (verbose_b) {
     cat(sprintf("Searching %s updated on or after %s...", endpoint, updated_at))
