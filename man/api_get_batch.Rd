@@ -24,7 +24,7 @@ api_get_batch(endpoint = "subjects",
 in the HTTP request header is equal to its default value.}
 }
 \description{
-\code{api_get_batch} fetches a specified data set from the MS Bioscreen.
+\code{api_get_batch} fetches a specific data set from the MS Bioscreen.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{return_status}}, \code{\link{response_to_data_frame}}

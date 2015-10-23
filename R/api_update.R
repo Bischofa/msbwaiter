@@ -1,6 +1,6 @@
 #' Update entry in MS Bioscreen
 #'
-#' \code{api_update} updates a specified entry in the MS Bioscreen.
+#' \code{api_update} updates an entry in the MS Bioscreen.
 #'
 #' @inheritParams api_check_data
 #'

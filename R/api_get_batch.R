@@ -1,6 +1,6 @@
 #' Get batch from MS Bioscreen
 #'
-#' \code{api_get_batch} fetches a specified data set from the MS Bioscreen.
+#' \code{api_get_batch} fetches a specific data set from the MS Bioscreen.
 #'
 #' @inheritParams api_do_action
 #' @inheritParams api_check_data

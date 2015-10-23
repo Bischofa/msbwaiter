@@ -8,8 +8,8 @@ Suggests: testthat
 Date: 2015-10-16
 Authors@R: c(person("Alisha", "Agrawal", email = "alisha.agrawal@ucsf.edu", role = c("aut")),
              person("Antoine", "Lizee", email = "antoine.lizee@ucsf.edu", role = c("cre")))
-Description: This package allows the user to interact with the MS Bioscreen API. The tools in this package
-             allow the user to fetch subjects, attacks, treatments, and visits data from the bioscreen. The user
-             will also be able to update and upload data in the bioscreen.
+Description: Once a valid authorization token is entered upon loading the package, the user can use the tools
+             in msbwaiter to interact with the MS Bioscreen API. The user can fetch subjects, attacks, treatments,
+             and visits data from the bioscreen API as well as search, delete, upload, and update data.
 License: CC0
 LazyData: TRUE

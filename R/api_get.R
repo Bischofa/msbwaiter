@@ -1,4 +1,4 @@
-#' Get specified entry from MS Bioscreen.
+#' Get specific entry from MS Bioscreen.
 #'
 #' \code{api_get} returns the bioscreen data associated with the specified \code{source_id}, \code{external_identifier}, and \code{endpoint}.
 #'

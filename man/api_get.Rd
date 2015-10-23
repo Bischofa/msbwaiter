@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_get.R
 \name{api_get}
 \alias{api_get}
-\title{Get specified entry from MS Bioscreen.}
+\title{Get specific entry from MS Bioscreen.}
 \usage{
 api_get(source_id = 1, external_identifier = 100, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",

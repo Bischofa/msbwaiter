@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_search_by_epicid.R
 \name{api_search_by_epicid}
 \alias{api_search_by_epicid}
-\title{Search MS Bioscreen data for specified EPICID}
+\title{Search MS Bioscreen data for specific EPICID}
 \usage{
 api_search_by_epicid(epicid = 1, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",

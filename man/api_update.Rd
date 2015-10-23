@@ -24,7 +24,7 @@ api_update(sufl_data, endpoint = "subjects",
 missing? The default is set to FALSE so that any NA values will be ignored; see 'Details'.}
 }
 \description{
-\code{api_update} updates a specified entry in the MS Bioscreen.
+\code{api_update} updates an entry in the MS Bioscreen.
 }
 \details{
 sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For updating subjects data, sufl_data needs to

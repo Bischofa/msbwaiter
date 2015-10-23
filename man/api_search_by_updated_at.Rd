@@ -23,7 +23,7 @@ api_search_by_updated_at(updated_at_date = "2015-09-24",
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-\code{api_search_by_epicid} searches bioscreen for all entries updated on or after specified \code{updated_at} and returns these entries.
+\code{api_search_by_epicid} searches bioscreen for all entries updated on or after specified date and time and returns these entries.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},
