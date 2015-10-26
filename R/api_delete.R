@@ -7,6 +7,7 @@
 #' @param external_identifier external identifer
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}}
+#' @export
 
 api_delete = function(source_id = 1, external_identifier = 100, endpoint = "subjects",
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",

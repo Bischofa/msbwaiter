@@ -7,6 +7,7 @@
 #' @param number_of_pages number of pages of data to return. If set to NULL (default), all pages are returned.
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{return_status}}, \code{\link{response_to_data_frame}}
+#' @export
 
 api_get_batch = function(endpoint = "subjects",
                          base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",

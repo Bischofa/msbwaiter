@@ -13,6 +13,7 @@
 #' \code{overwrite_na_to_missing} is TRUE.
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}
+#' @export
 
 api_update = function(sufl_data, endpoint = "subjects",
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",

@@ -13,6 +13,7 @@
 #' @seealso \code{\link{api_get_batch}}, \code{\link{api_create}}, \code{\link{api_update}},
 #' \code{\link{api_delete}}, \code{\link{api_get}}, \code{\link{api_search_by_epicid}},
 #' \code{\link{api_search_by_updated_at}}, \code{\link{api_check_data}}
+#' @export
 
 return_status = function(response_data, ok_status = c(200, 201, 202),
                          print_when_ok = "Done.\n"){
@@ -38,6 +39,7 @@ return_status = function(response_data, ok_status = c(200, 201, 202),
 #'
 #' @seealso \code{\link[jsonlite]{toJSON}}, \code{\link{api_get}},
 #' \code{\link{api_search_by_epicid}}, \code{\link{api_search_by_updated_at}}
+#' @export
 
 to_json_non_array = function(x, overwrite_na_to_missing = FALSE, ...){
   if(overwrite_na_to_missing){
@@ -58,6 +60,7 @@ to_json_non_array = function(x, overwrite_na_to_missing = FALSE, ...){
 #' @seealso \code{\link[jsonlite]{fromJSON}}, \code{\link{api_get_batch}},
 #' \code{\link{api_get}}, \code{\link{api_search_by_epicid}},
 #' \code{\link{api_search_by_updated_at}}
+#' @export
 
 response_to_data_frame = function(response_data){
   content_data = content(response_data, as = "text")

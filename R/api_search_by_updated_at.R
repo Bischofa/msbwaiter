@@ -8,7 +8,7 @@
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},
 #' \code{\link{api_delete}}, \code{\link{api_get}}, \code{\link{api_search_by_epicid}}
-
+#' @export
 
 api_search_by_updated_at = function(updated_at_date = "2015-09-24", updated_at_time = "00:00:00",
                                     endpoint = "subjects",

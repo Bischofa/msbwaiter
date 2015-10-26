@@ -29,6 +29,7 @@
 #' of sufl_data that are non-missing in the bioscreen entry, \code{api_check_data} will return 'update' only if \code{overwrite_na_to_missing} is TRUE.
 #'
 #' @seealso \code{\link{api_get}}, \code{\link{api_create}}, \code{\link{api_update}}
+#' @export
 
 api_check_data = function(sufl_data, ignore_col_names = c("first_name", "last_name"),
                           endpoint = "subjects",

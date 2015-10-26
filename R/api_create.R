@@ -11,6 +11,7 @@
 #' column names are missing, \code{api_create} will return an error message.
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_update}}
+#' @export
 
 api_create = function(sufl_data, endpoint = "subjects",
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",

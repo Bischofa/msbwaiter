@@ -8,6 +8,7 @@
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},
 #' \code{\link{api_delete}}, \code{\link{api_get}}, \code{\link{api_search_by_updated_at}}
+#' @export
 
 api_search_by_epicid = function(epicid = 1, endpoint = "subjects",
                                 base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
