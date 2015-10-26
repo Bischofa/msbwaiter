@@ -2,8 +2,8 @@ Package: msbwaiter
 Type: Package
 Title: Interacting with the MS Bioscreen API
 Version: 0.1
-Depends: httr,
-         jsonlite
+Depends: httr
+Imports: jsonlite
 Suggests: testthat
 Date: 2015-10-16
 Authors@R: c(person("Alisha", "Agrawal", email = "alisha.agrawal@ucsf.edu", role = c("aut")),

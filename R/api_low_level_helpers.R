@@ -41,9 +41,9 @@ return_status = function(response_data, ok_status = c(200, 201, 202),
 
 to_json_non_array = function(x, overwrite_na_to_missing = FALSE, ...){
   if(overwrite_na_to_missing){
-    x = toJSON(x, na = "null", ...)
+    x = jsonlite::toJSON(x, na = "null", ...)
   } else{
-    x = toJSON(x, ...)
+    x =  jsonlite::toJSON(x, ...)
   }
   x = gsub("\\[", "", x)
   gsub("\\]", "", x)
@@ -61,6 +61,6 @@ to_json_non_array = function(x, overwrite_na_to_missing = FALSE, ...){
 
 response_to_data_frame = function(response_data){
   content_data = content(response_data, as = "text")
-  fromJSON(content_data)
+  jsonlite::fromJSON(content_data)
 }
 
