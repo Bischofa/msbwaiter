@@ -15,8 +15,11 @@ FALSE so that any NA values will be ignored and not part of the JSON.}
 
 \item{...}{arguments passed on to class specific print methods}
 }
+\value{
+a JSON without brackets.
+}
 \description{
-\code{to_json_non_array} converts an R object to a JSON non-array object.
+\code{to_json_non_array} converts an R object to a JSON non-array.
 }
 \seealso{
 \code{\link[jsonlite]{toJSON}}, \code{\link{api_get}},

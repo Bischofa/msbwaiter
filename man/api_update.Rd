@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_update.R
 \name{api_update}
 \alias{api_update}
-\title{Update entry in MS Bioscreen}
+\title{Update an entry in the MS Bioscreen}
 \usage{
 api_update(sufl_data, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
@@ -12,7 +12,8 @@ api_update(sufl_data, endpoint = "subjects",
 \arguments{
 \item{sufl_data}{a data frame of 1 row with appropriate identifier columns; see 'Details'.}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
+\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+"treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
 
@@ -20,11 +21,12 @@ api_update(sufl_data, endpoint = "subjects",
 
 \item{verbose_b}{print progress messages as function runs?}
 
-\item{overwrite_na_to_missing}{if sufl_data contains an NA, should this data be ignored or should this value be considered
-missing? The default is set to FALSE so that any NA values will be ignored; see 'Details'.}
+\item{overwrite_na_to_missing}{if sufl_data contains an NA, should this data be ignored or should
+this value be encoded as a missing value? The default is set to FALSE so that any NA values will be
+ignored; see 'Details'.}
 }
 \description{
-\code{api_update} updates an entry in the MS Bioscreen.
+\code{api_update} updates an entry in the bioscreen.
 }
 \details{
 sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For updating subjects data, sufl_data needs to
@@ -35,6 +37,6 @@ columns of sufl_data that are non-missing in the bioscreen, \code{api_update} wi
 \code{overwrite_na_to_missing} is TRUE.
 }
 \seealso{
-\code{\link{api_do_action}}, \code{\link{api_create}}
+\code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_delete}}
 }
 

@@ -1,6 +1,7 @@
-#' Get specific entry from MS Bioscreen.
+#' Get a specific entry from the MS Bioscreen.
 #'
-#' \code{api_get} returns the bioscreen data associated with the specified \code{source_id}, \code{external_identifier}, and \code{endpoint}.
+#' \code{api_get} returns the bioscreen data associated with the specified \code{source_id},
+#' \code{external_identifier}, and \code{endpoint}.
 #'
 #' @inheritParams api_delete
 #'

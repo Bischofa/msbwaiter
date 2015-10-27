@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_create.R
 \name{api_create}
 \alias{api_create}
-\title{Create new entry in MS Bioscreen}
+\title{Create a new entry in the MS Bioscreen}
 \usage{
 api_create(sufl_data, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
@@ -11,7 +11,8 @@ api_create(sufl_data, endpoint = "subjects",
 \arguments{
 \item{sufl_data}{a data frame of 1 row with appropriate identifier columns; see 'Details'.}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
+\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+"treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
 
@@ -20,15 +21,16 @@ api_create(sufl_data, endpoint = "subjects",
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-\code{api_create} creates a new entry in MS Bioscreen.
+\code{api_create} creates a new entry in the bioscreen.
 }
 \details{
-sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For creating subjects data, sufl_data needs to
-contain the columns, 'source_id' and 'external_identifier'. For creating attacks, treatments, or visits data, sufl_data needs to
-contain the columns, 'source_id', 'external_identifier', 'patient_source_id', and 'patient_external_identifier'. If any of these
-column names are missing, \code{api_create} will return an error message.
+sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For creating
+subjects data, sufl_data needs to contain the identifier columns, 'source_id' and 'external_identifier'.
+For creating attacks, treatments, or visits data, sufl_data needs to contain the identifier columns,
+'source_id', 'external_identifier', patient_source_id', and 'patient_external_identifier'. If any of
+these columns are missing, \code{api_check_data} will return an error message.
 }
 \seealso{
-\code{\link{api_do_action}}, \code{\link{api_update}}
+\code{\link{api_do_action}}, \code{\link{api_update}}, \code{\link{api_delete}}
 }
 

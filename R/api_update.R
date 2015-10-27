@@ -1,6 +1,6 @@
-#' Update entry in MS Bioscreen
+#' Update an entry in the MS Bioscreen
 #'
-#' \code{api_update} updates an entry in the MS Bioscreen.
+#' \code{api_update} updates an entry in the bioscreen.
 #'
 #' @inheritParams api_check_data
 #'
@@ -12,7 +12,7 @@
 #' columns of sufl_data that are non-missing in the bioscreen, \code{api_update} will only update bioscreen data to missing if
 #' \code{overwrite_na_to_missing} is TRUE.
 #'
-#' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}
+#' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_delete}}
 #' @export
 
 api_update = function(sufl_data, endpoint = "subjects",

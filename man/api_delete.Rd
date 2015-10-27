@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_delete.R
 \name{api_delete}
 \alias{api_delete}
-\title{Delete entry in MS Bioscreen}
+\title{Delete an entry in the MS Bioscreen}
 \usage{
 api_delete(source_id = 1, external_identifier = 100,
   endpoint = "subjects",
@@ -14,7 +14,8 @@ api_delete(source_id = 1, external_identifier = 100,
 
 \item{external_identifier}{external identifer}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
+\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+"treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
 
@@ -23,7 +24,13 @@ api_delete(source_id = 1, external_identifier = 100,
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-\code{api_delete} deletes specified entry in MS Bioscreen.
+\code{api_delete} deletes the bioscreen data associated with the specified \code{source_id},
+\code{external_identifier}, and \code{endpoint}.
+}
+\details{
+Deleting 'subjects' data will also delete the associated 'attacks', 'treatments', and 'visits' data.
+Deleting 'attacks', 'treatments', or 'visits' data will NOT delete the associated data in any of the other
+endpoints.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}}

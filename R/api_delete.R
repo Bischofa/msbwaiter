@@ -1,10 +1,16 @@
-#' Delete entry in MS Bioscreen
+#' Delete an entry in the MS Bioscreen
 #'
-#' \code{api_delete} deletes specified entry in MS Bioscreen.
+#' \code{api_delete} deletes the bioscreen data associated with the specified \code{source_id},
+#' \code{external_identifier}, and \code{endpoint}.
 #'
 #' @inheritParams api_check_data
 #' @param source_id source identifer
 #' @param external_identifier external identifer
+#'
+#' @details
+#' Deleting 'subjects' data will also delete the associated 'attacks', 'treatments', and 'visits' data.
+#' Deleting 'attacks', 'treatments', or 'visits' data will NOT delete the associated data in any of the other
+#' endpoints.
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}}
 #' @export

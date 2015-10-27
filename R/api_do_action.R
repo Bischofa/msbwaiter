@@ -7,7 +7,7 @@
 #' @param url the url of the page to retrieve.
 #' @param token HTTP authorization token. Default is the token that the user enters when loading msbwaiter.
 #' @param json_body_data a non-array JSON. This JSON may be used for searching, updating, or creating data. If NULL (default),
-#' body argument is not part of the HTTP request header.
+#' the body argument is not part of the HTTP request header.
 #' @param results_per_page number of results to return per page. If set to NULL (default), the results_per_page query argument
 #' in the HTTP request header is equal to its default value.
 #'

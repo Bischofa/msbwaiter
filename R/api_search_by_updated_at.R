@@ -1,6 +1,6 @@
-#' Search MS Bioscreen data by when it was updated
+#' Search the MS Bioscreen by when it was updated
 #'
-#' \code{api_search_by_epicid} searches bioscreen for all entries updated on or after specified date and time and returns these entries.
+#' \code{api_search_by_updated_at} returns the bioscreen entries updated on or after the specified date and time.
 #'
 #' @inheritParams api_check_data
 #' @param updated_at_date date stamp in format "yyy-mm-dd".

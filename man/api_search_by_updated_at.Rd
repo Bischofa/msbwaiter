@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_search_by_updated_at.R
 \name{api_search_by_updated_at}
 \alias{api_search_by_updated_at}
-\title{Search MS Bioscreen data by when it was updated}
+\title{Search the MS Bioscreen by when it was updated}
 \usage{
 api_search_by_updated_at(updated_at_date = "2015-09-24",
   updated_at_time = "00:00:00", endpoint = "subjects",
@@ -14,7 +14,8 @@ api_search_by_updated_at(updated_at_date = "2015-09-24",
 
 \item{updated_at_time}{time stamp in format "hh:mm:ss".}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
+\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+"treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
 
@@ -23,7 +24,7 @@ api_search_by_updated_at(updated_at_date = "2015-09-24",
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-\code{api_search_by_epicid} searches bioscreen for all entries updated on or after specified date and time and returns these entries.
+\code{api_search_by_updated_at} returns the bioscreen entries updated on or after the specified date and time.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},

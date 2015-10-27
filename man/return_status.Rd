@@ -19,7 +19,7 @@ For successful HTTP requests, \code{return_status} returns TRUE and prints the \
 unsuccessful HTTP requests, \code{return_status} returns FALSE and prints the content of the response message.
 }
 \description{
-\code{return_status} checks whether an HTTP request was successful and prints the error if
+\code{return_status} checks whether an HTTP request was successful and prints the contents of the error if
 the request was not successful.
 }
 \seealso{

@@ -1,10 +1,9 @@
-#' Search MS Bioscreen data for specific EPICID
+#' Search the MS Bioscreen for a specific EPICID
 #'
-#' \code{api_search_by_epicid} searches bioscreen for specified \code{epicid} and returns all entries associated with that
-#' \code{epicid}
+#' \code{api_search_by_epicid} returns the bioscreen entries associated with the specified \code{epicid}.
 #'
 #' @inheritParams api_check_data
-#' @param epicid EPIC Identifier
+#' @param epicid EPIC identifier
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},
 #' \code{\link{api_delete}}, \code{\link{api_get}}, \code{\link{api_search_by_updated_at}}

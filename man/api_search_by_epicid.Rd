@@ -2,16 +2,17 @@
 % Please edit documentation in R/api_search_by_epicid.R
 \name{api_search_by_epicid}
 \alias{api_search_by_epicid}
-\title{Search MS Bioscreen data for specific EPICID}
+\title{Search the MS Bioscreen for a specific EPICID}
 \usage{
 api_search_by_epicid(epicid = 1, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE)
 }
 \arguments{
-\item{epicid}{EPIC Identifier}
+\item{epicid}{EPIC identifier}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
+\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+"treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
 
@@ -20,8 +21,7 @@ api_search_by_epicid(epicid = 1, endpoint = "subjects",
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-\code{api_search_by_epicid} searches bioscreen for specified \code{epicid} and returns all entries associated with that
-\code{epicid}
+\code{api_search_by_epicid} returns the bioscreen entries associated with the specified \code{epicid}.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},

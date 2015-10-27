@@ -1,6 +1,6 @@
 #' HTTP request status
 #'
-#' \code{return_status} checks whether an HTTP request was successful and prints the error if
+#' \code{return_status} checks whether an HTTP request was successful and prints the contents of the error if
 #' the request was not successful.
 #'
 #' @param response_data HTTP response.
@@ -29,13 +29,16 @@ return_status = function(response_data, ok_status = c(200, 201, 202),
 
 #' Convert R objects to JSON non-array
 #'
-#' \code{to_json_non_array} converts an R object to a JSON non-array object.
+#' \code{to_json_non_array} converts an R object to a JSON non-array.
 #'
 #' @param x the object to be encoded
 #' @param overwrite_na_to_missing if x contains an NA, should this data be removed from the JSON object
 #' or does the NA represent a missing value that should be represented as null in the JSON. The default is set to
 #' FALSE so that any NA values will be ignored and not part of the JSON.
 #' @param ... arguments passed on to class specific print methods
+#'
+#' @return
+#' a JSON without brackets.
 #'
 #' @seealso \code{\link[jsonlite]{toJSON}}, \code{\link{api_get}},
 #' \code{\link{api_search_by_epicid}}, \code{\link{api_search_by_updated_at}}

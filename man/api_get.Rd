@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_get.R
 \name{api_get}
 \alias{api_get}
-\title{Get specific entry from MS Bioscreen.}
+\title{Get a specific entry from the MS Bioscreen.}
 \usage{
 api_get(source_id = 1, external_identifier = 100, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
@@ -13,7 +13,8 @@ api_get(source_id = 1, external_identifier = 100, endpoint = "subjects",
 
 \item{external_identifier}{external identifer}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks", "treatments", "visits".}
+\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+"treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
 
@@ -22,7 +23,8 @@ api_get(source_id = 1, external_identifier = 100, endpoint = "subjects",
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-\code{api_get} returns the bioscreen data associated with the specified \code{source_id}, \code{external_identifier}, and \code{endpoint}.
+\code{api_get} returns the bioscreen data associated with the specified \code{source_id},
+\code{external_identifier}, and \code{endpoint}.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},

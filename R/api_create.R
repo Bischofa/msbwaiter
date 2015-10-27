@@ -1,16 +1,17 @@
-#' Create new entry in MS Bioscreen
+#' Create a new entry in the MS Bioscreen
 #'
-#' \code{api_create} creates a new entry in MS Bioscreen.
+#' \code{api_create} creates a new entry in the bioscreen.
 #'
 #' @inheritParams api_check_data
 #'
 #' @details
-#' sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For creating subjects data, sufl_data needs to
-#' contain the columns, 'source_id' and 'external_identifier'. For creating attacks, treatments, or visits data, sufl_data needs to
-#' contain the columns, 'source_id', 'external_identifier', 'patient_source_id', and 'patient_external_identifier'. If any of these
-#' column names are missing, \code{api_create} will return an error message.
+#' sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For creating
+#' subjects data, sufl_data needs to contain the identifier columns, 'source_id' and 'external_identifier'.
+#' For creating attacks, treatments, or visits data, sufl_data needs to contain the identifier columns,
+#' 'source_id', 'external_identifier', patient_source_id', and 'patient_external_identifier'. If any of
+#' these columns are missing, \code{api_check_data} will return an error message.
 #'
-#' @seealso \code{\link{api_do_action}}, \code{\link{api_update}}
+#' @seealso \code{\link{api_do_action}}, \code{\link{api_update}}, \code{\link{api_delete}}
 #' @export
 
 api_create = function(sufl_data, endpoint = "subjects",
