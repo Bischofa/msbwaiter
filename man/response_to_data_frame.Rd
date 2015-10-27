@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_low_level_helpers.R
 \name{response_to_data_frame}
 \alias{response_to_data_frame}
-\title{Convert R objects from JSON to a data frame}
+\title{Convert an HTTP response to a data frame}
 \usage{
 response_to_data_frame(response_data)
 }
@@ -10,7 +10,7 @@ response_to_data_frame(response_data)
 \item{response_data}{HTTP response.}
 }
 \description{
-\code{response_to_data_frame} converts a JSON to a data frame
+\code{response_to_data_frame} converts an HTTP response to a data frame
 }
 \seealso{
 \code{\link[jsonlite]{fromJSON}}, \code{\link{api_get_batch}},
