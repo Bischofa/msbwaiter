@@ -7,7 +7,7 @@
 api_delete(source_id = 1, external_identifier = 100,
   endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE)
+  token = get_token("msbwaiter_token"), verbose_b = TRUE)
 }
 \arguments{
 \item{source_id}{source identifer}
@@ -19,7 +19,7 @@ api_delete(source_id = 1, external_identifier = 100,
 
 \item{base_url}{the API base URL.}
 
-\item{token}{HTTP authorization token. Default is the token that the user enters when loading msbwaiter.}
+\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
 
 \item{verbose_b}{print progress messages as function runs?}
 }

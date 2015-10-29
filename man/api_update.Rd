@@ -6,7 +6,7 @@
 \usage{
 api_update(sufl_data, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE,
+  token = get_token("msbwaiter_token"), verbose_b = TRUE,
   overwrite_na_to_missing = FALSE)
 }
 \arguments{
@@ -17,7 +17,7 @@ api_update(sufl_data, endpoint = "subjects",
 
 \item{base_url}{the API base URL.}
 
-\item{token}{HTTP authorization token. Default is the token that the user enters when loading msbwaiter.}
+\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
 
 \item{verbose_b}{print progress messages as function runs?}
 

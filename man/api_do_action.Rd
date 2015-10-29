@@ -6,7 +6,7 @@
 \usage{
 api_do_action(action = GET,
   url = "https://msbioscreen-uat.herokuapp.com/api/v1/subjects",
-  token = Sys.getenv("msbwaiter_token"), json_body_data = NULL,
+  token = get_token("msbwaiter_token"), json_body_data = NULL,
   results_per_page = NULL)
 }
 \arguments{
@@ -14,7 +14,7 @@ api_do_action(action = GET,
 
 \item{url}{the url of the page to retrieve.}
 
-\item{token}{HTTP authorization token. Default is the token that the user enters when loading msbwaiter.}
+\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
 
 \item{json_body_data}{a non-array JSON. This JSON may be used for searching, updating, or creating data. If NULL (default),
 the body argument is not part of the HTTP request header.}

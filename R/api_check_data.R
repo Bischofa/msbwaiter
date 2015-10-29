@@ -44,7 +44,7 @@
 api_check_data = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
                           endpoint = "subjects",
                           base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-                          token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE,
+                          token = get_token("msbwaiter_token"), verbose_b = TRUE,
                           overwrite_na_to_missing = FALSE){
 
   if (verbose_b) {

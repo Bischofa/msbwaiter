@@ -66,4 +66,3 @@ response_to_data_frame = function(response_data){
   content_data = content(response_data, as = "text")
   jsonlite::fromJSON(content_data)
 }
-

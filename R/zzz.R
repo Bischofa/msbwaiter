@@ -1,5 +1,7 @@
 .onLoad <- function(libname, pkgname) {
-  Sys.setenv(msbwaiter_token = readline("Please enter your authorization token (without quotes): "))
+  if(!exists("msbwaiter_token")){
+    prompt_for_token()
+  }
 }
 .onUnload <- function(libname, pkgname) {
   Sys.unsetenv("msbwaiter_token")

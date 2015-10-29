@@ -16,7 +16,7 @@
 
 api_create = function(sufl_data, endpoint = "subjects",
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-                      token = Sys.getenv("msbwaiter_token"), verbose_b = TRUE){
+                      token = get_token("msbwaiter_token"), verbose_b = TRUE){
 
   if (verbose_b) {
     cat(sprintf("Creating new entry in %s data (source_id: %s, external_identifier: %s)...", endpoint, sufl_data$source_id, sufl_data$external_identifier))
