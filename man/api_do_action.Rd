@@ -30,6 +30,6 @@ bioscreen data.
 \code{\link{api_create}}, \code{\link{api_update}},
 \code{\link{api_delete}}, \code{\link{api_get}},
 \code{\link{api_search_by_epicid}}, \code{\link{api_search_by_updated_at}}
-\code{\link{api_check_data}}
+\code{\link{api_check}}
 }
 

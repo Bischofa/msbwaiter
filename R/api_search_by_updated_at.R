@@ -2,7 +2,7 @@
 #'
 #' \code{api_search_by_updated_at} returns the bioscreen entries updated on or after the specified date and time.
 #'
-#' @inheritParams api_check_data
+#' @inheritParams api_check
 #' @param updated_at_date date stamp in format "yyy-mm-dd".
 #' @param updated_at_time time stamp in format "hh:mm:ss".
 #'

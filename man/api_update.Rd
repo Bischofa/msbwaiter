@@ -21,7 +21,7 @@ api_update(sufl_data, endpoint = "subjects",
 
 \item{verbose_b}{print progress messages as function runs?}
 
-\item{overwrite_na_to_missing}{if sufl_data contains an NA, should this data be ignored or should
+\item{overwrite_na_to_missing}{if the sufl data set contains an NA, should this data be ignored or should
 this value be encoded as a missing value? The default is set to FALSE so that any NA values will be
 ignored; see 'Details'.}
 }

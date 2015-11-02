@@ -3,7 +3,7 @@
 #' \code{api_get_batch} fetches the specified endpoint data from the bioscreen.
 #'
 #' @inheritParams api_do_action
-#' @inheritParams api_check_data
+#' @inheritParams api_check
 #' @param number_of_pages number of pages of data to return. If set to NULL (default), all pages are returned.
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{return_status}}, \code{\link{response_to_data_frame}}

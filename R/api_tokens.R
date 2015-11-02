@@ -22,6 +22,7 @@ prompt_for_token = function(){
 #' \code{get_token} will return an error.
 #'
 #' @seealso \code{\link[base]{Sys.setenv}}, \code{\link[base]{prompt_for_token}}
+#' @export
 
 get_token = function(token_name = "msbwaiter_token"){
   if(exists(token_name)){

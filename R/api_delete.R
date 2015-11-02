@@ -3,7 +3,7 @@
 #' \code{api_delete} deletes the bioscreen data associated with the specified \code{source_id},
 #' \code{external_identifier}, and \code{endpoint}.
 #'
-#' @inheritParams api_check_data
+#' @inheritParams api_check
 #' @param source_id source identifer
 #' @param external_identifier external identifer
 #'

@@ -2,7 +2,7 @@
 #'
 #' \code{api_search_by_epicid} returns the bioscreen entries associated with the specified \code{epicid}.
 #'
-#' @inheritParams api_check_data
+#' @inheritParams api_check
 #' @param epicid EPIC identifier
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}},
