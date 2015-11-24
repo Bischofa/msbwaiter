@@ -11,7 +11,7 @@
 
 api_get_batch = function(endpoint = "subjects",
                          base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-                         token = get_token("msbwaiter_token"), verbose_b = TRUE,
+                         token = get_token(), verbose_b = TRUE,
                          number_of_pages = NULL, results_per_page = NULL){
 
   if (verbose_b) {

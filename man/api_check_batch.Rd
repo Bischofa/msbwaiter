@@ -6,8 +6,8 @@
 \usage{
 api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
   endpoint, base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = get_token("msbwaiter_token"), verbose_b = TRUE,
-  overwrite_na_to_missing = FALSE, change = FALSE, max_update = 200)
+  token = get_token(), verbose_b = TRUE, overwrite_na_to_missing = FALSE,
+  change = FALSE, max_update = 200)
 }
 \arguments{
 \item{sufl_batch}{a data frame with SUFL identifier columns; see 'Details'.}
@@ -19,7 +19,7 @@ api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
 
 \item{base_url}{the API base URL.}
 
-\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
+\item{token}{HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.}
 
 \item{verbose_b}{print progress messages as function runs?}
 

@@ -6,8 +6,8 @@
 \usage{
 api_get_batch(endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = get_token("msbwaiter_token"), verbose_b = TRUE,
-  number_of_pages = NULL, results_per_page = NULL)
+  token = get_token(), verbose_b = TRUE, number_of_pages = NULL,
+  results_per_page = NULL)
 }
 \arguments{
 \item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
@@ -15,7 +15,7 @@ api_get_batch(endpoint = "subjects",
 
 \item{base_url}{the API base URL.}
 
-\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
+\item{token}{HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.}
 
 \item{verbose_b}{print progress messages as function runs?}
 

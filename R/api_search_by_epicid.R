@@ -11,7 +11,7 @@
 
 api_search_by_epicid = function(epicid = 1, endpoint = "subjects",
                                 base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-                                token = get_token("msbwaiter_token"), verbose_b = TRUE){
+                                token = get_token(), verbose_b = TRUE){
 
   if (verbose_b) {
     cat(sprintf("Searching %s for epicid = %s...", endpoint, epicid))

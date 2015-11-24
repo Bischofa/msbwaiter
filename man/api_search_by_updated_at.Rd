@@ -7,7 +7,7 @@
 api_search_by_updated_at(updated_at_date = "2015-09-24",
   updated_at_time = "00:00:00", endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = get_token("msbwaiter_token"), verbose_b = TRUE)
+  token = get_token(), verbose_b = TRUE)
 }
 \arguments{
 \item{updated_at_date}{date stamp in format "yyy-mm-dd".}
@@ -19,7 +19,7 @@ api_search_by_updated_at(updated_at_date = "2015-09-24",
 
 \item{base_url}{the API base URL.}
 
-\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
+\item{token}{HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.}
 
 \item{verbose_b}{print progress messages as function runs?}
 }
