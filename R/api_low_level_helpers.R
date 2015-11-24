@@ -65,12 +65,19 @@ to_json_non_array = function(x, overwrite_na_to_missing = FALSE, ...){
 
 response_to_data_frame = function(response_data){
   content_data = content(response_data, as = "text")
-  jsonlite::fromJSON(content_data)
+  data = jsonlite::fromJSON(content_data)
+
+  # change blanks to NA
+  for(i in 1:ncol(data)){
+    data[, i][data[, i] == ""] = NA
+  }
+
+  return(data)
 }
 
 # helper function for comparing entries between a sufl data set and the data in the bioscreen
 compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_name", "last_name"),
-                           endpoint, verbose_b = TRUE, overwrite_na_to_missing = FALSE){
+                           endpoint = "subjects", verbose_b = TRUE, overwrite_na_to_missing = FALSE){
 
   if (verbose_b) {
     cat(sprintf("Checking whether %s data (source_id: %s, external_identifier: %s) needs to be created or updated...",
