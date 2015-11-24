@@ -5,10 +5,9 @@
 #' @inheritParams api_check
 #'
 #' @details
-#' sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For updating subjects data, sufl_data needs to
-#' contain the columns, 'source_id' and 'external_identifier'. For updating attacks, treatments, or visits data, sufl_data needs to
-#' contain the columns, 'source_id', 'external_identifier', 'patient_source_id', and 'patient_external_identifier'. If any of these
-#' column names are missing, \code{api_update} will return an error message. Also note that if there are NA values in non-identifier
+#' In order for the bioscreen API to process sufl_data, sufl_data must contain, at minimum, the SUFL identifier columns 'source_id'
+#' and 'external_identifier'. For attacks, treatments, and visits data, sufl_data must also contain the SUFL identifier columns 'patient_source_id'
+#' and 'patient_external_identifier'.  Note that if there are NA values in non-identifier
 #' columns of sufl_data that are non-missing in the bioscreen, \code{api_update} will only update bioscreen data to missing if
 #' \code{overwrite_na_to_missing} is TRUE.
 #'
@@ -16,6 +15,7 @@
 #' @export
 
 api_update = function(sufl_data, endpoint = "subjects",
+                      ignore_colnames = c("first_name", "last_name"),
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                       token = get_token("msbwaiter_token"),
                       verbose_b = TRUE, overwrite_na_to_missing = FALSE){
@@ -28,6 +28,7 @@ api_update = function(sufl_data, endpoint = "subjects",
   url = paste(base_url, "sources", sufl_data$source_id, endpoint, sufl_data$external_identifier, sep = "/")
 
   # updating existing data
+  sufl_data = sufl_data[, !(colnames(sufl_data) %in% ignore_colnames)]
   response_data = api_do_action(action = PUT, url = url, token = token, json_body_data = to_json_non_array(sufl_data, overwrite_na_to_missing = overwrite_na_to_missing))
 
   # check status

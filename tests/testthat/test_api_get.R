@@ -8,13 +8,13 @@ source_id = 1
 external_identifier = 8
 endpoint = "subjects"
 
+# get entry..
+sufl_data = api_get(source_id = source_id, external_identifier = external_identifier, endpoint = endpoint,
+                    base_url = base_url, verbose_b = verbose_b)
+have_to_create = length(sufl_data) == 0
+
 # tests
 test_that("api_get returns a single entry of data", {
-
-  # get entry..
-  sufl_data = api_get(source_id = source_id, external_identifier = external_identifier, endpoint = endpoint,
-                      base_url = base_url, verbose_b = verbose_b)
-  have_to_create = length(sufl_data) == 0
 
   # if entry does not exist, create it and now api_get should return a single entry
   if(have_to_create){

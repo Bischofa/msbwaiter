@@ -4,13 +4,12 @@
 #' of the inputed data frame. If no such data entry exists, \code{api_check} will return 'create'.
 #' Otherwise, \code{api_check} will return 'update' or 'no action' depending on how closely the
 #' values of the inputed data frame match those in the corresponding bioscreen data entry. To check many
-#' sufl data entries at once, use \code{api_check_batch}.
+#' data entries at once, use \code{api_check_batch}.
 #'
 #' @inheritParams api_do_action
 #' @inheritParams to_json_non_array
-#' @param sufl_data a data frame of 1 row with appropriate identifier columns; see 'Details'.
-#' @param ignore_colnames the column names to ignore when comparing the sufl data set with the data in the
-#' bioscreen. Set to NULL to compare all columns.
+#' @param sufl_data a data frame of 1 row with column names that follow the current SUFL specification (1.0); see 'Details'.
+#' @param ignore_colnames the columns to remove from sufl data before proceeding. Set to NULL to keep all columns.
 #' @param endpoint the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
 #' "treatments", and "visits".
 #' @param base_url the API base URL.
@@ -22,12 +21,9 @@
 #' Default is set to FALSE.
 #'
 #' @details
-#' sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For checking
-#' subjects data, sufl_data needs to contain the identifier columns, 'source_id' and 'external_identifier'.
-#' For checking attacks, treatments, or visits data, sufl_data needs to contain the identifier columns,
-#' 'source_id', 'external_identifier', patient_source_id', and 'patient_external_identifier'. If any of
-#' these columns are missing, \code{api_check} will return an error message. Note that if there are
-#' NA values in the non-identifier/non-ignore_colnames columns of sufl_data that are non-missing in the
+#' In order for the bioscreen API to process sufl_data, sufl_data must contain, at minimum, the SUFL identifier columns 'source_id'
+#' and 'external_identifier'. For attacks, treatments, and visits data, sufl_data must also contain the SUFL identifier columns 'patient_source_id'
+#' and 'patient_external_identifier'. Note that if there are NA values in the non-identifier/non-ignore_colnames columns of sufl_data that are non-missing in the
 #' bioscreen, \code{api_check} will return 'update' only if \code{overwrite_na_to_missing} is TRUE.
 #'
 #' @return
@@ -67,8 +63,8 @@ api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
                         base_url = base_url, verbose_b = verbose_b)
            },
            update = {
-             sufl_data = sufl_data[, !(colnames(sufl_data) %in% ignore_colnames)]
              api_update(sufl_data = sufl_data, endpoint = endpoint,
+                        ignore_colnames = ignore_colnames,
                         base_url = base_url, verbose_b = verbose_b,
                         overwrite_na_to_missing = overwrite_na_to_missing)
            }

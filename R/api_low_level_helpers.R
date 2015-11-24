@@ -95,22 +95,53 @@ compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_
     data_from_app_values = as.vector(sapply(data_from_app, as.character))
 
     # look at which values differ between sufl_data and data_from_app
-    index1 = which(sufl_data_values != data_from_app_values)
+    testing_equality = function(sufl, app, overwrite_na_to_missing){
+      stopifnot(length(app) == length(sufl))
+      nearly_equal = list()
+      for(i in 1:length(app)){
 
-    # look at which values are NA in data_from_app but are non-missing in sufl_data
-    missing_sufl_data = is.na(sufl_data_values) | as.character(sufl_data_values) == ""
-    missing_data_from_app = is.na(data_from_app_values) | as.character(data_from_app_values) == ""
-    index2 = which(!missing_sufl_data & missing_data_from_app)
+        # look at which columns are numbers with decimal places, for these numbers, test near equality
+        if(grepl("\\.[0-9]", sufl[i]) & grepl("\\.[0-9]", app[i])){
 
-    # If overwrite_na_to_missing = TRUE, look at which values are NA in sufl_data but are non-missing in data_from_app
-    if(overwrite_na_to_missing){
-      index3 = which(missing_sufl_data & !missing_data_from_app)
-    } else{
-      index3 = NULL
+          nearly_equal[i] = isTRUE(all.equal(as.numeric(app[i]), as.numeric(sufl[i]), tolerance = 1e-2))
+
+        } else{
+
+          missing_sufl = is.na(sufl[i]) | sufl[i] == ""
+          missing_app= is.na(app[i]) | app[i] == ""
+
+          if(missing_app & missing_sufl){
+            nearly_equal[i] = TRUE
+          }
+
+          # look at which values are NA in app but are non-missing in sufl
+          if(missing_app & !missing_sufl){
+            nearly_equal[i] = FALSE
+          }
+
+          # look at which values are NA in sufl but are non-missing in app if overwrite_na_to_missing = TRUE
+          if(!missing_app & missing_sufl & overwrite_na_to_missing){
+            nearly_equal[i] = FALSE
+          }
+
+          # ignore when values are NA in sufl but are non-missing in app if overwrite_na_to_missing = FALSE
+          if(!missing_app & missing_sufl & !overwrite_na_to_missing){
+            nearly_equal[i] = TRUE
+          }
+
+          # if app and sufl have non-missing values and are are not floating numbers, check if they are exactly equal
+          if(!missing_app & !missing_sufl){
+            nearly_equal[i] = app[i] == sufl[i]
+          }
+
+        }
+      }
+      return(unlist(nearly_equal))
     }
 
-    # look at which entries need to be updated, if no entries need to be updated, return 'no action'
-    entries_to_update = unique(c(index1, index2, index3))
+    entries_to_update = which(!testing_equality(sufl = sufl_data_values,
+                                                app = data_from_app_values,
+                                                overwrite_na_to_missing = overwrite_na_to_missing))
 
     if(length(entries_to_update) == 0){
       action = "no action"

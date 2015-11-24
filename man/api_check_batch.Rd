@@ -11,10 +11,9 @@ api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
   overwrite_na_to_missing = FALSE, change = FALSE, max_update = 200)
 }
 \arguments{
-\item{sufl_batch}{a data frame with appropriate identifier columns; see 'Details'.}
+\item{sufl_batch}{a data frame with SUFL identifier columns; see 'Details'.}
 
-\item{ignore_colnames}{the column names to ignore when comparing the sufl data set with the data in the
-bioscreen. Set to NULL to compare all columns.}
+\item{ignore_colnames}{the columns to remove from sufl data before proceeding. Set to NULL to keep all columns.}
 
 \item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
@@ -33,16 +32,19 @@ FALSE so that any NA values will be ignored and not part of the JSON.}
 Default is set to FALSE.}
 
 \item{max_update}{the maximum number of entries that you expect will need to be updated. If there are more than max_update entries to update,
-\code{api_check_batch} will not proceed to create/update entries in the bioscreen even if \code{change} is equal to TRUE.}
+\code{api_check_batch} will not proceed to create/update entries in the bioscreen even if \code{change} is equal to TRUE. Set to NA for no restriction
+on max_update.}
 }
 \value{
-\code{api_check_batch} returns a vector the same length as the number of rows in \code{sufl_batch} where each entry of the vector
-is either create', 'update', or 'no action'. Please see ?\code{api_check} for more details.
+\code{api_check_batch} returns a list of length 2. The first entry in the list is a vector the same length as the number
+of rows in \code{sufl_batch} where each entry of the vector  is either create', 'update', or 'no action'. See ?\code{api_check}
+for more details. If \code{api_check_batch} proceeded to update/create entries, the second entry in the list is TRUE. Otherwise,
+the second entry in the list is FALSE.
 }
 \description{
 \code{api_check_batch} compares the entries of \code{sufl_batch} with those currently in the bioscreen. This
 function is similar to \code{api_check} except that it can take a sufl data set with many entries. \code{api_check_batch}
-fetches all the data from the bioscreen and then performs its comparison. Please see ?\code{api_check} for more details.
+fetches all the data from the bioscreen and then performs its comparison. See ?\code{api_check} for more details.
 }
 \details{
 sufl_batch must be a data frame with column names that follow the SUFL format. For checking

@@ -5,15 +5,18 @@
 \title{Update an entry in the MS Bioscreen}
 \usage{
 api_update(sufl_data, endpoint = "subjects",
+  ignore_colnames = c("first_name", "last_name"),
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token("msbwaiter_token"), verbose_b = TRUE,
   overwrite_na_to_missing = FALSE)
 }
 \arguments{
-\item{sufl_data}{a data frame of 1 row with appropriate identifier columns; see 'Details'.}
+\item{sufl_data}{a data frame of 1 row with column names that follow the current SUFL specification (1.0); see 'Details'.}
 
 \item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
+
+\item{ignore_colnames}{the columns to remove from sufl data before proceeding. Set to NULL to keep all columns.}
 
 \item{base_url}{the API base URL.}
 
@@ -29,10 +32,9 @@ ignored; see 'Details'.}
 \code{api_update} updates an entry in the bioscreen.
 }
 \details{
-sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For updating subjects data, sufl_data needs to
-contain the columns, 'source_id' and 'external_identifier'. For updating attacks, treatments, or visits data, sufl_data needs to
-contain the columns, 'source_id', 'external_identifier', 'patient_source_id', and 'patient_external_identifier'. If any of these
-column names are missing, \code{api_update} will return an error message. Also note that if there are NA values in non-identifier
+In order for the bioscreen API to process sufl_data, sufl_data must contain, at minimum, the SUFL identifier columns 'source_id'
+and 'external_identifier'. For attacks, treatments, and visits data, sufl_data must also contain the SUFL identifier columns 'patient_source_id'
+and 'patient_external_identifier'.  Note that if there are NA values in non-identifier
 columns of sufl_data that are non-missing in the bioscreen, \code{api_update} will only update bioscreen data to missing if
 \code{overwrite_na_to_missing} is TRUE.
 }
