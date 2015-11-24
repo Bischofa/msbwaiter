@@ -2,17 +2,20 @@
 % Please edit documentation in R/api_tokens.R
 \name{get_token}
 \alias{get_token}
-\title{Search for authorization token}
+\title{Search for authorization token or prompt for it.}
 \usage{
-get_token(token_name = "msbwaiter_token")
+get_token(overwrite = FALSE)
+}
+\arguments{
+\item{overwrite}{A logical. Should we prompt if token exists? Usual use
+by other functions calls for the default behaviour \code{overwrite = FALSE}.}
 }
 \description{
-\code{get_token} searches the global environment for \code{token_name} and returns its value if it exists. If
-\code{token_name} has not been set in the global environment, \code{get_token} will search the environment
-for \code{token_name} and return its value if it exisits. If \code{token_name} is not found in either environment,
-\code{get_token} will return an error.
+\code{get_token} searches for the environment variable MSBWAITER_TOKEN. If not
+set, it prompts the user for an authorization token. If the session is not
+interactive, the function will throw an error.
 }
 \seealso{
-\code{\link[base]{Sys.setenv}}, \code{\link[base]{prompt_for_token}}
+\code{\link[base]{Sys.setenv}}
 }
 

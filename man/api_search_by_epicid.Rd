@@ -6,7 +6,7 @@
 \usage{
 api_search_by_epicid(epicid = 1, endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = get_token("msbwaiter_token"), verbose_b = TRUE)
+  token = get_token(), verbose_b = TRUE)
 }
 \arguments{
 \item{epicid}{EPIC identifier}
@@ -16,7 +16,7 @@ api_search_by_epicid(epicid = 1, endpoint = "subjects",
 
 \item{base_url}{the API base URL.}
 
-\item{token}{HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.}
+\item{token}{HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.}
 
 \item{verbose_b}{print progress messages as function runs?}
 }

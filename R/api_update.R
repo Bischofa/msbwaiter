@@ -17,7 +17,7 @@
 api_update = function(sufl_data, endpoint,
                       ignore_colnames = c("first_name", "last_name"),
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-                      token = get_token("msbwaiter_token"),
+                      token = get_token(),
                       verbose_b = TRUE, overwrite_na_to_missing = FALSE){
 
   if (verbose_b) {

@@ -5,7 +5,7 @@
 #'
 #' @param action the HTTP method (GET, DELETE, PUT, POST).
 #' @param url the url of the page to retrieve.
-#' @param token HTTP authorization token. Default is to search global environment and environment for the variable 'msbwaiter_token'.
+#' @param token HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.
 #' @param json_body_data a non-array JSON. This JSON may be used for searching, updating, or creating data. If NULL (default),
 #' the body argument is not part of the HTTP request header.
 #' @param results_per_page number of results to return per page. If set to NULL (default), the results_per_page query argument
@@ -18,7 +18,7 @@
 
 api_do_action = function(action = GET,
                          url = "https://msbioscreen-uat.herokuapp.com/api/v1/subjects",
-                         token = get_token("msbwaiter_token"),
+                         token = get_token(),
                          json_body_data = NULL, results_per_page = NULL){
   format_token = paste0("Token token=", "\"", token,"\"")
 
