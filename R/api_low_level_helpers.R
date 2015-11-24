@@ -13,6 +13,7 @@
 #' @seealso \code{\link{api_get_batch}}, \code{\link{api_create}}, \code{\link{api_update}},
 #' \code{\link{api_delete}}, \code{\link{api_get}}, \code{\link{api_search_by_epicid}},
 #' \code{\link{api_search_by_updated_at}}, \code{\link{api_check}}
+#' @import httr
 
 return_status = function(response_data, ok_status = c(200, 201, 202),
                          print_when_ok = "Done.\n"){
