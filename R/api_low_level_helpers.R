@@ -67,11 +67,12 @@ response_to_data_frame = function(response_data){
   content_data = content(response_data, as = "text")
   data = jsonlite::fromJSON(content_data)
 
-  # change blanks to NA
-  for(i in 1:ncol(data)){
-    data[, i][data[, i] == ""] = NA
+  # change blanks to NA if data is not an empty list
+  if(!is.null(ncol(data))){
+    for(i in 1:ncol(data)){
+      data[, i][data[, i] == ""] = NA
+    }
   }
-
   return(data)
 }
 
