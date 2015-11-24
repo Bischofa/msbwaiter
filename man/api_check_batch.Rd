@@ -5,8 +5,7 @@
 \title{Create or update MS Bioscreen data?}
 \usage{
 api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
-  endpoint = "subjects",
-  base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
+  endpoint, base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token("msbwaiter_token"), verbose_b = TRUE,
   overwrite_na_to_missing = FALSE, change = FALSE, max_update = 200)
 }

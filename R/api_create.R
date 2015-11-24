@@ -14,7 +14,7 @@
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_update}}, \code{\link{api_delete}}
 #' @export
 
-api_create = function(sufl_data, endpoint = "subjects",
+api_create = function(sufl_data, endpoint,
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                       token = get_token("msbwaiter_token"), verbose_b = TRUE){
 

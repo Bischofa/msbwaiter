@@ -41,7 +41,7 @@
 #' @export
 
 api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
-                     endpoint = "subjects",
+                     endpoint,
                      base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                      token = get_token("msbwaiter_token"), verbose_b = TRUE,
                      overwrite_na_to_missing = FALSE, change = FALSE){

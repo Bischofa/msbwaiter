@@ -4,9 +4,8 @@
 \alias{api_update}
 \title{Update an entry in the MS Bioscreen}
 \usage{
-api_update(sufl_data, endpoint = "subjects",
-  ignore_colnames = c("first_name", "last_name"),
-  base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
+api_update(sufl_data, endpoint, ignore_colnames = c("first_name",
+  "last_name"), base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token("msbwaiter_token"), verbose_b = TRUE,
   overwrite_na_to_missing = FALSE)
 }

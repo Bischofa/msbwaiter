@@ -4,8 +4,7 @@
 \alias{api_check}
 \title{Create or update MS Bioscreen data entry?}
 \usage{
-api_check(sufl_data, ignore_colnames = c("first_name", "last_name"),
-  endpoint = "subjects",
+api_check(sufl_data, ignore_colnames = c("first_name", "last_name"), endpoint,
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token("msbwaiter_token"), verbose_b = TRUE,
   overwrite_na_to_missing = FALSE, change = FALSE)

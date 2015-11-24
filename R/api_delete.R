@@ -15,7 +15,7 @@
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_update}}
 #' @export
 
-api_delete = function(source_id = 1, external_identifier = 100, endpoint = "subjects",
+api_delete = function(source_id = 1, external_identifier = 100, endpoint,
                       base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                       token = get_token("msbwaiter_token"),
                       verbose_b = TRUE){

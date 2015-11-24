@@ -70,7 +70,7 @@ response_to_data_frame = function(response_data){
 
 # helper function for comparing entries between a sufl data set and the data in the bioscreen
 compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_name", "last_name"),
-                           endpoint = "subjects", verbose_b = TRUE, overwrite_na_to_missing = FALSE){
+                           endpoint, verbose_b = TRUE, overwrite_na_to_missing = FALSE){
 
   if (verbose_b) {
     cat(sprintf("Checking whether %s data (source_id: %s, external_identifier: %s) needs to be created or updated...",
