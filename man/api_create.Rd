@@ -2,16 +2,18 @@
 % Please edit documentation in R/api_create.R
 \name{api_create}
 \alias{api_create}
-\title{Create a new entry in the MS Bioscreen}
+\title{Create MS Bioscreen data entry}
 \usage{
 api_create(sufl_data, endpoint,
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token(), verbose_b = TRUE)
 }
 \arguments{
-\item{sufl_data}{a data frame of 1 row with column names that follow the current SUFL specification (1.0); see 'Details'.}
+\item{sufl_data}{a data frame with 1 row and column names that follow the current SUFL specification (1.0). At minimum, sufl_data
+must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_data
+must also contain the identifier columns "patient_source_id" and "patient_external_identifier".}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+\item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
@@ -22,13 +24,6 @@ api_create(sufl_data, endpoint,
 }
 \description{
 \code{api_create} creates a new entry in the bioscreen.
-}
-\details{
-sufl_data must be a data frame of 1 row with column names that follow the SUFL format. For creating
-subjects data, sufl_data needs to contain the identifier columns, 'source_id' and 'external_identifier'.
-For creating attacks, treatments, or visits data, sufl_data needs to contain the identifier columns,
-'source_id', 'external_identifier', patient_source_id', and 'patient_external_identifier'. If any of
-these columns are missing, \code{api_create} will return an error message.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_update}}, \code{\link{api_delete}}

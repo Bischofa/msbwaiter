@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_get_batch.R
 \name{api_get_batch}
 \alias{api_get_batch}
-\title{Get endpoint data from the MS Bioscreen}
+\title{Fetch MS Bioscreen endpoint data}
 \usage{
 api_get_batch(endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
@@ -10,7 +10,7 @@ api_get_batch(endpoint = "subjects",
   results_per_page = NULL)
 }
 \arguments{
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+\item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
 
 \item{base_url}{the API base URL.}

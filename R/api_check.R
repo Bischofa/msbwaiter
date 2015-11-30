@@ -1,40 +1,27 @@
 #' Create or update MS Bioscreen data entry?
 #'
-#' \code{api_check} searches the bioscreen for a data entry that matches the identifiers
-#' of the inputed data frame. If no such data entry exists, \code{api_check} will return 'create'.
-#' Otherwise, \code{api_check} will return 'update' or 'no action' depending on how closely the
-#' values of the inputed data frame match those in the corresponding bioscreen data entry. To check many
-#' data entries at once, use \code{api_check_batch}.
+#'\code{api_check} fetches the bioscreen entry with the same identifier values as those in the inputed sufl data set.
+#'\code{api_check} returns "update" or "no action" depending on whether all other values in the inputed sufl data set match
+#'those in the bioscreen data entry. If a corresponding bioscreen data entry does not exist, \code{api_check}
+#'returns "create". When \code{change} is set to TRUE, \code{api_check} will proceed to actually create and update entries.
+#'To check many data entries at once, use \code{api_check_batch}. See ?\code{api_check_batch} for more details.
 #'
 #' @inheritParams api_do_action
 #' @inheritParams to_json_non_array
-#' @param sufl_data a data frame of 1 row with column names that follow the current SUFL specification (1.0); see 'Details'.
-#' @param ignore_colnames the columns to remove from sufl data before proceeding. Set to NULL to keep all columns.
-#' @param endpoint the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+#' @param sufl_data a data frame with 1 row and column names that follow the current SUFL specification (1.0). At minimum, sufl_data
+#' must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_data
+#' must also contain the identifier columns "patient_source_id" and "patient_external_identifier".
+#' @param ignore_colnames the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
+#' variable to be updated in the bioscreen if its value is different in the inputed sufl data set.
+#' @param endpoint the data endpoint of interest. Possible values are "subjects", "attacks",
 #' "treatments", and "visits".
 #' @param base_url the API base URL.
 #' @param verbose_b print progress messages as function runs?
-#' @param overwrite_na_to_missing if the sufl data set contains an NA, should this data be ignored or should
-#' this value be encoded as a missing value? The default is set to FALSE so that any NA values will be
-#' ignored; see 'Details'.
-#' @param change should the function proceed to actually update or create data in the bioscreen?
+#' @param overwrite_na_to_missing when there is an NA value in the sufl data set that is not NA in the
+#' corresponding bioscreen data entry, should the value in the bioscreen be overwritten to NA? Default
+#' is set to FALSE so that non-missing values in the bioscreen are not overwritten to NA.
+#' @param change should the function proceed to actually create and update entries in the bioscreen?
 #' Default is set to FALSE.
-#'
-#' @details
-#' In order for the bioscreen API to process sufl_data, sufl_data must contain, at minimum, the SUFL identifier columns 'source_id'
-#' and 'external_identifier'. For attacks, treatments, and visits data, sufl_data must also contain the SUFL identifier columns 'patient_source_id'
-#' and 'patient_external_identifier'. Note that if there are NA values in the non-identifier/non-ignore_colnames columns of sufl_data that are non-missing in the
-#' bioscreen, \code{api_check} will return 'update' only if \code{overwrite_na_to_missing} is TRUE.
-#'
-#' @return
-#' \code{api_check} returns 'create' if there is currently no data in the bioscreen that matches the
-#' identifier columns of sufl_data. If there is data in the bioscreen that matches the identifier columns of
-#' sufl_data, \code{api_check} will return either 'no action' or 'update'. \code{api_check} returns
-#' 'no action' when all sufl_data values (minus the ignore_colnames) match those in the corresponding bioscreen
-#' entry. Note that if there are missing values in the non-identifier/non-ignore_colnames columns of the bioscreen
-#' that are non-missing in sufl_data, \code{api_check} will return 'update'. However, if there are NA values in the
-#' non-identifier/non-ignore_colnames columns of sufl_data that are non-missing in the bioscreen,
-#' \code{api_check} will return 'update' only if \code{overwrite_na_to_missing} is TRUE.
 #'
 #' @seealso \code{\link{api_check_batch}}, \code{\link{api_get}}, \code{\link{api_create}},
 #' \code{\link{api_update}}, \code{\link{to_json_non_array}}

@@ -1,4 +1,4 @@
-#' Delete an entry in the MS Bioscreen
+#' Delete MS Bioscreen data entry
 #'
 #' \code{api_delete} deletes the bioscreen data associated with the specified \code{source_id},
 #' \code{external_identifier}, and \code{endpoint}.

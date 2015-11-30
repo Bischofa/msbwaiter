@@ -2,19 +2,22 @@
 % Please edit documentation in R/api_update.R
 \name{api_update}
 \alias{api_update}
-\title{Update an entry in the MS Bioscreen}
+\title{Update MS Bioscreen data entry}
 \usage{
 api_update(sufl_data, endpoint, ignore_colnames = c("first_name",
   "last_name"), base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token(), verbose_b = TRUE, overwrite_na_to_missing = FALSE)
 }
 \arguments{
-\item{sufl_data}{a data frame of 1 row with column names that follow the current SUFL specification (1.0); see 'Details'.}
+\item{sufl_data}{a data frame with 1 row and column names that follow the current SUFL specification (1.0). At minimum, sufl_data
+must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_data
+must also contain the identifier columns "patient_source_id" and "patient_external_identifier".}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+\item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
 
-\item{ignore_colnames}{the columns to remove from sufl data before proceeding. Set to NULL to keep all columns.}
+\item{ignore_colnames}{the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
+variable to be updated in the bioscreen if its value is different in the inputed sufl data set.}
 
 \item{base_url}{the API base URL.}
 
@@ -22,19 +25,12 @@ api_update(sufl_data, endpoint, ignore_colnames = c("first_name",
 
 \item{verbose_b}{print progress messages as function runs?}
 
-\item{overwrite_na_to_missing}{if the sufl data set contains an NA, should this data be ignored or should
-this value be encoded as a missing value? The default is set to FALSE so that any NA values will be
-ignored; see 'Details'.}
+\item{overwrite_na_to_missing}{when there is an NA value in the sufl data set that is not NA in the
+corresponding bioscreen data entry, should the value in the bioscreen be overwritten to NA? Default
+is set to FALSE so that non-missing values in the bioscreen are not overwritten to NA.}
 }
 \description{
 \code{api_update} updates an entry in the bioscreen.
-}
-\details{
-In order for the bioscreen API to process sufl_data, sufl_data must contain, at minimum, the SUFL identifier columns 'source_id'
-and 'external_identifier'. For attacks, treatments, and visits data, sufl_data must also contain the SUFL identifier columns 'patient_source_id'
-and 'patient_external_identifier'.  Note that if there are NA values in non-identifier
-columns of sufl_data that are non-missing in the bioscreen, \code{api_update} will only update bioscreen data to missing if
-\code{overwrite_na_to_missing} is TRUE.
 }
 \seealso{
 \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_delete}}

@@ -1,4 +1,4 @@
-#' Search the MS Bioscreen by when it was updated
+#' Search MS Bioscreen by an updated at timestamp
 #'
 #' \code{api_search_by_updated_at} returns the bioscreen entries updated on or after the specified date and time.
 #'
@@ -18,7 +18,7 @@ api_search_by_updated_at = function(updated_at_date = "2015-09-24", updated_at_t
   updated_at = paste(updated_at_date, updated_at_time)
 
   if (verbose_b) {
-    cat(sprintf("Searching %s updated on or after %s...", endpoint, updated_at))
+    cat(sprintf("Searching %s updated on or after %s at %s...", endpoint, updated_at_date, updated_at_time))
   }
 
   # getting url of app

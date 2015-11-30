@@ -1,25 +1,21 @@
-#' Create or update MS Bioscreen data?
+#' Create or update MS Bioscreen data entries?
 #'
-#' \code{api_check_batch} compares the entries of \code{sufl_batch} with those currently in the bioscreen. This
-#' function is similar to \code{api_check} except that it can take a sufl data set with many entries. \code{api_check_batch}
-#' fetches all the data from the bioscreen and then performs its comparison. See ?\code{api_check} for more details.
+#' \code{api_check_batch} fetches all the bioscreen data for the specified endpoint. \code{api_check_batch} then compares each entry
+#' in the inputed sufl data set with the corresponding entry in the bioscreen data set. For each entry in the inputed sufl data set,
+#' \code{api_check_batch} returns "create", "update", or "no action". When \code{change} is set to TRUE, \code{api_check_batch} will
+#' proceed to actually create and update entries. \code{api_check_batch} is similar to \code{api_check} except that it can take a
+#' sufl data set with multiple entries. When there is only one entry, use \code{api_check} for faster comparison. See ?\code{api_check}
+#' for more details.
 #'
 #' @inheritParams api_do_action
 #' @inheritParams to_json_non_array
 #' @inheritParams api_check
-#' @param sufl_batch a data frame with SUFL identifier columns; see 'Details'.
+#' @param sufl_batch a data frame with any number of rows and column names that follow the current SUFL specification (1.0). At minimum, sufl_batch
+#' must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_batch
+#' must also contain the identifier columns "patient_source_id" and "patient_external_identifier".
 #' @param max_update the maximum number of entries that you expect will need to be updated. If there are more than max_update entries to update,
 #' \code{api_check_batch} will not proceed to create/update entries in the bioscreen even if \code{change} is equal to TRUE. Set to NA for no restriction
 #' on max_update.
-#'
-#' @details
-#' sufl_batch must be a data frame with column names that follow the SUFL format. For checking
-#' subjects data, sufl_batch needs to contain the identifier columns, 'source_id' and 'external_identifier'.
-#' For checking attacks, treatments, or visits data, sufl_batch needs to contain the identifier columns,
-#' 'source_id', 'external_identifier', patient_source_id', and 'patient_external_identifier'. If any of
-#' these columns are missing, \code{api_check_batch} will return an error message. Note that if there are
-#' NA values in the non-identifier/non-ignore_colnames columns of sufl_batch that are non-missing in the
-#' bioscreen, \code{api_check_batch} will return 'update' only if \code{overwrite_na_to_missing} is TRUE.
 #'
 #' @return
 #' \code{api_check_batch} returns a list of length 2. The first entry in the list is a vector the same length as the number

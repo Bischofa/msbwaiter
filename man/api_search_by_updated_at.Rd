@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_search_by_updated_at.R
 \name{api_search_by_updated_at}
 \alias{api_search_by_updated_at}
-\title{Search the MS Bioscreen by when it was updated}
+\title{Search MS Bioscreen by an updated at timestamp}
 \usage{
 api_search_by_updated_at(updated_at_date = "2015-09-24",
   updated_at_time = "00:00:00", endpoint = "subjects",
@@ -14,7 +14,7 @@ api_search_by_updated_at(updated_at_date = "2015-09-24",
 
 \item{updated_at_time}{time stamp in format "hh:mm:ss".}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+\item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
 
 \item{base_url}{the API base URL.}

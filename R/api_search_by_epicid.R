@@ -1,4 +1,4 @@
-#' Search the MS Bioscreen for a specific EPICID
+#' Search MS Bioscreen for a specific EPICID
 #'
 #' \code{api_search_by_epicid} returns the bioscreen entries associated with the specified \code{epicid}.
 #'

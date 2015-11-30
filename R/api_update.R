@@ -1,15 +1,8 @@
-#' Update an entry in the MS Bioscreen
+#' Update MS Bioscreen data entry
 #'
 #' \code{api_update} updates an entry in the bioscreen.
 #'
 #' @inheritParams api_check
-#'
-#' @details
-#' In order for the bioscreen API to process sufl_data, sufl_data must contain, at minimum, the SUFL identifier columns 'source_id'
-#' and 'external_identifier'. For attacks, treatments, and visits data, sufl_data must also contain the SUFL identifier columns 'patient_source_id'
-#' and 'patient_external_identifier'.  Note that if there are NA values in non-identifier
-#' columns of sufl_data that are non-missing in the bioscreen, \code{api_update} will only update bioscreen data to missing if
-#' \code{overwrite_na_to_missing} is TRUE.
 #'
 #' @seealso \code{\link{api_do_action}}, \code{\link{api_create}}, \code{\link{api_delete}}
 #' @export

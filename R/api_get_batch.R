@@ -1,4 +1,4 @@
-#' Get endpoint data from the MS Bioscreen
+#' Fetch MS Bioscreen endpoint data
 #'
 #' \code{api_get_batch} fetches the specified endpoint data from the bioscreen.
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_check_batch.R
 \name{api_check_batch}
 \alias{api_check_batch}
-\title{Create or update MS Bioscreen data?}
+\title{Create or update MS Bioscreen data entries?}
 \usage{
 api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
   endpoint, base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
@@ -10,11 +10,14 @@ api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
   change = FALSE, max_update = 200)
 }
 \arguments{
-\item{sufl_batch}{a data frame with SUFL identifier columns; see 'Details'.}
+\item{sufl_batch}{a data frame with any number of rows and column names that follow the current SUFL specification (1.0). At minimum, sufl_batch
+must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_batch
+must also contain the identifier columns "patient_source_id" and "patient_external_identifier".}
 
-\item{ignore_colnames}{the columns to remove from sufl data before proceeding. Set to NULL to keep all columns.}
+\item{ignore_colnames}{the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
+variable to be updated in the bioscreen if its value is different in the inputed sufl data set.}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+\item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
@@ -27,7 +30,7 @@ api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
 or does the NA represent a missing value that should be represented as null in the JSON. The default is set to
 FALSE so that any NA values will be ignored and not part of the JSON.}
 
-\item{change}{should the function proceed to actually update or create data in the bioscreen?
+\item{change}{should the function proceed to actually create and update entries in the bioscreen?
 Default is set to FALSE.}
 
 \item{max_update}{the maximum number of entries that you expect will need to be updated. If there are more than max_update entries to update,
@@ -41,18 +44,12 @@ for more details. If \code{api_check_batch} proceeded to update/create entries, 
 the second entry in the list is FALSE.
 }
 \description{
-\code{api_check_batch} compares the entries of \code{sufl_batch} with those currently in the bioscreen. This
-function is similar to \code{api_check} except that it can take a sufl data set with many entries. \code{api_check_batch}
-fetches all the data from the bioscreen and then performs its comparison. See ?\code{api_check} for more details.
-}
-\details{
-sufl_batch must be a data frame with column names that follow the SUFL format. For checking
-subjects data, sufl_batch needs to contain the identifier columns, 'source_id' and 'external_identifier'.
-For checking attacks, treatments, or visits data, sufl_batch needs to contain the identifier columns,
-'source_id', 'external_identifier', patient_source_id', and 'patient_external_identifier'. If any of
-these columns are missing, \code{api_check_batch} will return an error message. Note that if there are
-NA values in the non-identifier/non-ignore_colnames columns of sufl_batch that are non-missing in the
-bioscreen, \code{api_check_batch} will return 'update' only if \code{overwrite_na_to_missing} is TRUE.
+\code{api_check_batch} fetches all the bioscreen data for the specified endpoint. \code{api_check_batch} then compares each entry
+in the inputed sufl data set with the corresponding entry in the bioscreen data set. For each entry in the inputed sufl data set,
+\code{api_check_batch} returns "create", "update", or "no action". When \code{change} is set to TRUE, \code{api_check_batch} will
+proceed to actually create and update entries. \code{api_check_batch} is similar to \code{api_check} except that it can take a
+sufl data set with multiple entries. When there is only one entry, use \code{api_check} for faster comparison. See ?\code{api_check}
+for more details.
 }
 \seealso{
 \code{\link{api_check}}, \code{\link{api_get_batch}}, \code{\link{api_create}},

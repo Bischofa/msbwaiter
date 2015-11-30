@@ -1,7 +1,7 @@
 #' Search for authorization token or prompt for it.
 #'
 #' \code{get_token} searches for the environment variable MSBWAITER_TOKEN. If not
-#' set, it prompts the user for an authorization token. If the session is not 
+#' set, it prompts the user for an authorization token. If the session is not
 #' interactive, the function will throw an error.
 #'
 #'@param overwrite A logical. Should we prompt if token exists? Usual use

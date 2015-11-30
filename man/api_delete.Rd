@@ -2,7 +2,7 @@
 % Please edit documentation in R/api_delete.R
 \name{api_delete}
 \alias{api_delete}
-\title{Delete an entry in the MS Bioscreen}
+\title{Delete MS Bioscreen data entry}
 \usage{
 api_delete(source_id = 1, external_identifier = 100, endpoint,
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
@@ -13,7 +13,7 @@ api_delete(source_id = 1, external_identifier = 100, endpoint,
 
 \item{external_identifier}{external identifer}
 
-\item{endpoint}{the name of the data endpoint to fetch. Possible values are "subjects", "attacks",
+\item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
 
 \item{base_url}{the API base URL.}
