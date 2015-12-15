@@ -4,21 +4,22 @@
 \alias{api_check_batch}
 \title{Create or update MS Bioscreen data entries?}
 \usage{
-api_check_batch(sufl_batch, ignore_colnames = c("first_name", "last_name"),
-  endpoint, base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
+api_check_batch(sufl_batch, endpoint, ignore_colnames = c("first_name",
+  "last_name"), base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token(), verbose_b = TRUE, overwrite_na_to_missing = FALSE,
-  change = FALSE, max_update = 200)
+  change = FALSE, destructive = FALSE, max_update = 200,
+  max_delete = 200)
 }
 \arguments{
 \item{sufl_batch}{a data frame with any number of rows and column names that follow the current SUFL specification (1.0). At minimum, sufl_batch
 must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_batch
 must also contain the identifier columns "patient_source_id" and "patient_external_identifier".}
 
-\item{ignore_colnames}{the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
-variable to be updated in the bioscreen if its value is different in the inputed sufl data set.}
-
 \item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
+
+\item{ignore_colnames}{the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
+variable to be updated in the bioscreen if its value is different in the inputed sufl data set.}
 
 \item{base_url}{the API base URL.}
 
@@ -26,22 +27,30 @@ variable to be updated in the bioscreen if its value is different in the inputed
 
 \item{verbose_b}{print progress messages as function runs?}
 
-\item{overwrite_na_to_missing}{if x contains an NA, should this data be removed from the JSON object
-or does the NA represent a missing value that should be represented as null in the JSON. The default is set to
-FALSE so that any NA values will be ignored and not part of the JSON.}
+\item{overwrite_na_to_missing}{when there is an NA value in the sufl data set that is not NA in the
+corresponding bioscreen data entry, should the value in the bioscreen be overwritten to NA? Default
+is set to FALSE so that non-missing values in the bioscreen are not overwritten to NA.}
 
 \item{change}{should the function proceed to actually create and update entries in the bioscreen?
 Default is set to FALSE.}
 
+\item{destructive}{if TRUE and change = TRUE, \code{api_check_batch} will delete any data in the bioscreen that is not found in \code{sufl_batch} but that
+has the same \code{source_id} as \code{sufl_batch}.}
+
 \item{max_update}{the maximum number of entries that you expect will need to be updated. If there are more than max_update entries to update,
-\code{api_check_batch} will not proceed to create/update entries in the bioscreen even if \code{change} is equal to TRUE. Set to NA for no restriction
+\code{api_check_batch} will not proceed to create/update/delete entries in the bioscreen even if \code{change} is equal to TRUE. Set to NA for no restriction
 on max_update.}
+
+\item{max_delete}{the maximum number of entries that you expect will need to be deleted from the bioscreen when destructive = TRUE. If there are more
+than max_delete entries to delete, \code{api_check_batch} will not proceed to create/update/delete entries in the bioscreen even if \code{destructive} and \code{change}
+are equal to TRUE. Set to NA for no restriction on max_delete.}
 }
 \value{
-\code{api_check_batch} returns a list of length 2. The first entry in the list is a vector the same length as the number
-of rows in \code{sufl_batch} where each entry of the vector  is either create', 'update', or 'no action'. See ?\code{api_check}
-for more details. If \code{api_check_batch} proceeded to update/create entries, the second entry in the list is TRUE. Otherwise,
-the second entry in the list is FALSE.
+\code{api_check_batch} returns a list of length 3. The first entry in the list is a vector the same length as the number
+of rows in \code{sufl_batch} where each entry of the vector is either create', 'update', or 'no action'. See ?\code{api_check}
+for more details. The second entry in the list is the number of entries that were found in the bioscreen but not in \code{sufl_batch}.
+If \code{api_check_batch} proceeded to update/create (and delete entries if \code{destructive} = TRUE), the third entry in the list is TRUE. Otherwise, the third entry
+in the list is FALSE.
 }
 \description{
 \code{api_check_batch} fetches all the bioscreen data for the specified endpoint. \code{api_check_batch} then compares each entry
