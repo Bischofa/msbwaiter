@@ -119,5 +119,5 @@ api_check_batch = function(sufl_batch, endpoint,
     }
   }
 
-  return(list(unlist(action_list), number_of_entries_only_in_bioscreen = destroy_data_n, did_change = change))
+  return(list(action_list = unlist(action_list), number_of_entries_only_in_bioscreen = destroy_data_n, did_change = change))
 }
