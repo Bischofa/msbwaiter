@@ -46,11 +46,9 @@ than max_delete entries to delete, \code{api_check_batch} will not proceed to cr
 are equal to TRUE. Set to NA for no restriction on max_delete.}
 }
 \value{
-\code{api_check_batch} returns a list of length 3. The first entry in the list is a vector the same length as the number
+\code{api_check_batch} returns a list of length 2. The first entry in the list is a vector the same length as the number
 of rows in \code{sufl_batch} where each entry of the vector is either create', 'update', or 'no action'. See ?\code{api_check}
 for more details. The second entry in the list is the number of entries that were found in the bioscreen but not in \code{sufl_batch}.
-If \code{api_check_batch} proceeded to update/create (and delete entries if \code{destructive} = TRUE), the third entry in the list is TRUE. Otherwise, the third entry
-in the list is FALSE.
 }
 \description{
 \code{api_check_batch} fetches all the bioscreen data for the specified endpoint. \code{api_check_batch} then compares each entry

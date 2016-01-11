@@ -22,11 +22,9 @@
 #' are equal to TRUE. Set to NA for no restriction on max_delete.
 #'
 #' @return
-#' \code{api_check_batch} returns a list of length 3. The first entry in the list is a vector the same length as the number
+#' \code{api_check_batch} returns a list of length 2. The first entry in the list is a vector the same length as the number
 #' of rows in \code{sufl_batch} where each entry of the vector is either create', 'update', or 'no action'. See ?\code{api_check}
 #' for more details. The second entry in the list is the number of entries that were found in the bioscreen but not in \code{sufl_batch}.
-#' If \code{api_check_batch} proceeded to update/create (and delete entries if \code{destructive} = TRUE), the third entry in the list is TRUE. Otherwise, the third entry
-#' in the list is FALSE.
 #'
 #' @seealso \code{\link{api_check}}, \code{\link{api_get_batch}}, \code{\link{api_create}},
 #' \code{\link{api_update}}, \code{\link{to_json_non_array}}
@@ -65,10 +63,10 @@ api_check_batch = function(sufl_batch, endpoint,
   if(!is.na(max_update)){
     if(sum(unlist(action_list) == "update") > max_update){
       if(change){
-        change = FALSE
-        warning("There are more than ", max_update, " entries that need to be updated so api_check_batch did not proceed to create/update/delete entries. Increase max_update and run api_check_batch again if you would like to create/update/delete entries.")
+        warning(sprintf("%d entries to update is above the maximum set (%d).", sum(unlist(action_list) == "update"), max_update ))
+        stop("MAX_UPDATE error: too many entries to update.")
       } else{
-        warning("There are more than ", max_update, " entries that need to be updated.")
+        warning(sprintf("%d entries to update is above the maximum set (%d).", sum(unlist(action_list) == "update"), max_update ))
       }
     }
   }
@@ -77,10 +75,10 @@ api_check_batch = function(sufl_batch, endpoint,
   if(!is.na(max_delete) & destructive){
     if(destroy_data_n > max_delete){
       if(change){
-        change = FALSE
-        warning("There are more than ", max_delete, " entries that need to be deleted from the bioscreen so api_check_batch did not proceed to create/update/delete entries. Increase max_delete and run api_check_batch again if you would like to create/update/delete entries.")
+        warning(sprintf("%d entries to delete is above the maximum set (%d).", destroy_data_n, max_delete))
+        stop("MAX_DELETE error: too many entries to delete.")
       } else{
-        warning("There are more than ", max_delete, " entries that need to be deleted from the bioscreen.")
+        warning(sprintf("%d entries to delete is above the maximum set (%d).", destroy_data_n, max_delete))
       }
     }
   }
@@ -119,5 +117,5 @@ api_check_batch = function(sufl_batch, endpoint,
     }
   }
 
-  return(list(action_list = unlist(action_list), number_of_entries_only_in_bioscreen = destroy_data_n, did_change = change))
+  return(list(action_list = unlist(action_list), number_of_entries_only_in_bioscreen = destroy_data_n))
 }
