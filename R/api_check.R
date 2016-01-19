@@ -17,7 +17,7 @@
 #' "treatments", and "visits".
 #' @param base_url the API base URL.
 #' @param verbose_b print progress messages as function runs?
-#' @param overwrite_na_to_missing when there is an NA value in the sufl data set that is not NA in the
+#' @param keep_na when there is an NA value in the sufl data set that is not NA in the
 #' corresponding bioscreen data entry, should the value in the bioscreen be overwritten to NA? Default
 #' is set to FALSE so that non-missing values in the bioscreen are not overwritten to NA.
 #' @param change should the function proceed to actually create and update entries in the bioscreen?
@@ -31,7 +31,7 @@ api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
                      endpoint,
                      base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                      token = get_token(), verbose_b = TRUE,
-                     overwrite_na_to_missing = FALSE, change = FALSE){
+                     keep_na = FALSE, change = FALSE){
 
   # searching for entry in bioscreen...
   data_from_app = api_get(source_id = sufl_data$source_id, external_identifier = sufl_data$external_identifier,
@@ -40,7 +40,7 @@ api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
   # compare sufl_data with bioscreen entry
   action = compare_entries(sufl_data = sufl_data, data_from_app = data_from_app,
                            ignore_colnames = ignore_colnames, endpoint = endpoint, verbose_b = verbose_b,
-                           overwrite_na_to_missing = overwrite_na_to_missing)
+                           keep_na = keep_na)
 
   # if change = TRUE, proceed to update/create
   if(change){
@@ -53,7 +53,7 @@ api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
              api_update(sufl_data = sufl_data, endpoint = endpoint,
                         ignore_colnames = ignore_colnames,
                         base_url = base_url, verbose_b = verbose_b,
-                        overwrite_na_to_missing = overwrite_na_to_missing)
+                        keep_na = keep_na)
            }
     )
   }

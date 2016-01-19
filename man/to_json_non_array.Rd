@@ -4,12 +4,12 @@
 \alias{to_json_non_array}
 \title{Convert R objects to JSON non-array}
 \usage{
-to_json_non_array(x, overwrite_na_to_missing = FALSE, ...)
+to_json_non_array(x, keep_na = FALSE, ...)
 }
 \arguments{
 \item{x}{the object to be encoded}
 
-\item{overwrite_na_to_missing}{if x contains an NA, should this data be removed from the JSON object
+\item{keep_na}{if x contains an NA, should this data be removed from the JSON object
 or does the NA represent a missing value that should be represented as null in the JSON. The default is set to
 FALSE so that any NA values will be ignored and not part of the JSON.}
 

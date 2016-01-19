@@ -6,7 +6,7 @@
 \usage{
 api_check(sufl_data, ignore_colnames = c("first_name", "last_name"), endpoint,
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = get_token(), verbose_b = TRUE, overwrite_na_to_missing = FALSE,
+  token = get_token(), verbose_b = TRUE, keep_na = FALSE,
   change = FALSE)
 }
 \arguments{
@@ -26,7 +26,7 @@ variable to be updated in the bioscreen if its value is different in the inputed
 
 \item{verbose_b}{print progress messages as function runs?}
 
-\item{overwrite_na_to_missing}{when there is an NA value in the sufl data set that is not NA in the
+\item{keep_na}{when there is an NA value in the sufl data set that is not NA in the
 corresponding bioscreen data entry, should the value in the bioscreen be overwritten to NA? Default
 is set to FALSE so that non-missing values in the bioscreen are not overwritten to NA.}
 

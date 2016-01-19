@@ -24,10 +24,6 @@ variable to be updated in the bioscreen if its value is different in the inputed
 \item{token}{HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.}
 
 \item{verbose_b}{print progress messages as function runs?}
-
-\item{overwrite_na_to_missing}{when there is an NA value in the sufl data set that is not NA in the
-corresponding bioscreen data entry, should the value in the bioscreen be overwritten to NA? Default
-is set to FALSE so that non-missing values in the bioscreen are not overwritten to NA.}
 }
 \description{
 \code{api_update} updates an entry in the bioscreen.

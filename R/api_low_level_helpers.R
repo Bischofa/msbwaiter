@@ -32,7 +32,7 @@ return_status = function(response_data, ok_status = c(200, 201, 202),
 #' \code{to_json_non_array} converts an R object to a JSON non-array.
 #'
 #' @param x the object to be encoded
-#' @param overwrite_na_to_missing if x contains an NA, should this data be removed from the JSON object
+#' @param keep_na if x contains an NA, should this data be removed from the JSON object
 #' or does the NA represent a missing value that should be represented as null in the JSON. The default is set to
 #' FALSE so that any NA values will be ignored and not part of the JSON.
 #' @param ... arguments passed on to class specific print methods
@@ -43,8 +43,8 @@ return_status = function(response_data, ok_status = c(200, 201, 202),
 #' @seealso \code{\link[jsonlite]{toJSON}}, \code{\link{api_get}},
 #' \code{\link{api_search_by_epicid}}, \code{\link{api_search_by_updated_at}}
 
-to_json_non_array = function(x, overwrite_na_to_missing = FALSE, ...){
-  if(overwrite_na_to_missing){
+to_json_non_array = function(x, keep_na = FALSE, ...){
+  if(keep_na){
     x = jsonlite::toJSON(x, na = "null", ...)
   } else{
     x =  jsonlite::toJSON(x, ...)
@@ -78,7 +78,7 @@ response_to_data_frame = function(response_data){
 
 # helper function for comparing entries between a sufl data set and the data in the bioscreen
 compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_name", "last_name"),
-                           endpoint = "subjects", verbose_b = TRUE, overwrite_na_to_missing = FALSE){
+                           endpoint = "subjects", verbose_b = TRUE, keep_na = FALSE){
 
   if (verbose_b) {
     cat(sprintf("Checking whether %s data (source_id: %s, external_identifier: %s) needs to be created or updated...",
@@ -104,7 +104,7 @@ compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_
     data_from_app_values = as.vector(sapply(data_from_app, as.character))
 
     # look at which values differ between sufl_data and data_from_app
-    testing_equality = function(sufl, app, overwrite_na_to_missing){
+    testing_equality = function(sufl, app, keep_na){
       stopifnot(length(app) == length(sufl))
       nearly_equal = list()
       for(i in 1:length(app)){
@@ -128,13 +128,13 @@ compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_
             nearly_equal[i] = FALSE
           }
 
-          # look at which values are NA in sufl but are non-missing in app if overwrite_na_to_missing = TRUE
-          if(!missing_app & missing_sufl & overwrite_na_to_missing){
+          # look at which values are NA in sufl but are non-missing in app if keep_na = TRUE
+          if(!missing_app & missing_sufl & keep_na){
             nearly_equal[i] = FALSE
           }
 
-          # ignore when values are NA in sufl but are non-missing in app if overwrite_na_to_missing = FALSE
-          if(!missing_app & missing_sufl & !overwrite_na_to_missing){
+          # ignore when values are NA in sufl but are non-missing in app if keep_na = FALSE
+          if(!missing_app & missing_sufl & !keep_na){
             nearly_equal[i] = TRUE
           }
 
@@ -150,7 +150,7 @@ compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_
 
     entries_to_update = which(!testing_equality(sufl = sufl_data_values,
                                                 app = data_from_app_values,
-                                                overwrite_na_to_missing = overwrite_na_to_missing))
+                                                keep_na = keep_na))
 
     if(length(entries_to_update) == 0){
       action = "no action"
