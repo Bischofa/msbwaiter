@@ -34,7 +34,7 @@ api_check_batch = function(sufl_batch, endpoint,
                            ignore_colnames = c("first_name", "last_name"),
                            base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                            token = get_token(), verbose_b = TRUE,
-                           overwrite_na_to_missing = FALSE, change = FALSE,
+                           keep_na = FALSE, change = FALSE,
                            destructive = FALSE, max_update = 200, max_delete = 200){
 
   # get batch of data from bioscreen...
@@ -45,7 +45,7 @@ api_check_batch = function(sufl_batch, endpoint,
   for(i in 1:nrow(sufl_batch)){
     action_list[[i]] = compare_entries(sufl_data = sufl_batch[i, ], data_from_app = data_from_app,
                                        ignore_colnames = ignore_colnames, endpoint = endpoint, verbose_b = verbose_b,
-                                       overwrite_na_to_missing = overwrite_na_to_missing)
+                                       keep_na = keep_na)
   }
 
   # determine which entries are only found in the bioscreen and will need to be deleted if destructive = TRUE and change = TRUE
@@ -96,7 +96,7 @@ api_check_batch = function(sufl_batch, endpoint,
                api_update(sufl_data = sufl_batch[i, ], endpoint = endpoint,
                           ignore_colnames = ignore_colnames,
                           base_url = base_url, verbose_b = verbose_b,
-                          overwrite_na_to_missing = overwrite_na_to_missing)
+                          keep_na = keep_na)
              }
       )
     }
