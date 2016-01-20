@@ -13,7 +13,7 @@
 #' must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_batch
 #' must also contain the identifier columns "patient_source_id" and "patient_external_identifier".
 #' @param destructive if TRUE and change = TRUE, \code{api_check_batch} will delete any data in the bioscreen that is not found in \code{sufl_batch} but that
-#' has the same \code{source_id} as \code{sufl_batch}.
+#' has a \code{source_id} that is found \code{sufl_batch}.
 #' @param max_update the maximum number of entries that you expect will need to be updated. If there are more than max_update entries to update,
 #' \code{api_check_batch} will not proceed to create/update/delete entries in the bioscreen even if \code{change} is equal to TRUE. Set to NA for no restriction
 #' on max_update.
@@ -43,9 +43,9 @@ api_check_batch = function(sufl_batch, endpoint,
   # compare sufl_batch with all bioscreen data to determine which entries need to be created/updated
   action_list = list()
   for(i in 1:nrow(sufl_batch)){
-    action_list[[i]] = compare_entries(sufl_data = sufl_batch[i, ], data_from_app = data_from_app,
-                                       ignore_colnames = ignore_colnames, endpoint = endpoint, verbose_b = verbose_b,
-                                       keep_na = keep_na)
+    action_list[[i]] = compare_entries(sufl_data = sufl_batch[i, ], data_from_app = data_from_app, endpoint = endpoint,
+                                       ignore_colnames = ignore_colnames,
+                                       verbose_b = verbose_b, keep_na = keep_na)
   }
 
   # determine which entries are only found in the bioscreen and will need to be deleted if destructive = TRUE and change = TRUE

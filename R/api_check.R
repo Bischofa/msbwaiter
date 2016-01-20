@@ -27,8 +27,8 @@
 #' \code{\link{api_update}}, \code{\link{to_json_non_array}}
 #' @export
 
-api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
-                     endpoint,
+api_check = function(sufl_data, endpoint,
+                     ignore_colnames = c("first_name", "last_name"),
                      base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
                      token = get_token(), verbose_b = TRUE,
                      keep_na = FALSE, change = FALSE){
@@ -38,9 +38,9 @@ api_check = function(sufl_data, ignore_colnames = c("first_name", "last_name"),
                           endpoint = endpoint, base_url = base_url, token = token, verbose_b = FALSE)
 
   # compare sufl_data with bioscreen entry
-  action = compare_entries(sufl_data = sufl_data, data_from_app = data_from_app,
-                           ignore_colnames = ignore_colnames, endpoint = endpoint, verbose_b = verbose_b,
-                           keep_na = keep_na)
+  action = compare_entries(sufl_data = sufl_data, data_from_app = data_from_app, endpoint = endpoint,
+                           ignore_colnames = ignore_colnames,
+                           verbose_b = verbose_b, keep_na = keep_na)
 
   # if change = TRUE, proceed to update/create
   if(change){

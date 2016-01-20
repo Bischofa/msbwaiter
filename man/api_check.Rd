@@ -4,7 +4,7 @@
 \alias{api_check}
 \title{Create or update MS Bioscreen data entry?}
 \usage{
-api_check(sufl_data, ignore_colnames = c("first_name", "last_name"), endpoint,
+api_check(sufl_data, endpoint, ignore_colnames = c("first_name", "last_name"),
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
   token = get_token(), verbose_b = TRUE, keep_na = FALSE,
   change = FALSE)
@@ -14,11 +14,11 @@ api_check(sufl_data, ignore_colnames = c("first_name", "last_name"), endpoint,
 must contain the identifier columns "source_id" and "external_identifier". For attacks, treatments and visits data, sufl_data
 must also contain the identifier columns "patient_source_id" and "patient_external_identifier".}
 
-\item{ignore_colnames}{the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
-variable to be updated in the bioscreen if its value is different in the inputed sufl data set.}
-
 \item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
+
+\item{ignore_colnames}{the names of the variables whose values should not be updated in the bioscreen. Set to NULL to allow any
+variable to be updated in the bioscreen if its value is different in the inputed sufl data set.}
 
 \item{base_url}{the API base URL.}
 

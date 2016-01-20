@@ -35,7 +35,7 @@ is set to FALSE so that non-missing values in the bioscreen are not overwritten 
 Default is set to FALSE.}
 
 \item{destructive}{if TRUE and change = TRUE, \code{api_check_batch} will delete any data in the bioscreen that is not found in \code{sufl_batch} but that
-has the same \code{source_id} as \code{sufl_batch}.}
+has a \code{source_id} that is found \code{sufl_batch}.}
 
 \item{max_update}{the maximum number of entries that you expect will need to be updated. If there are more than max_update entries to update,
 \code{api_check_batch} will not proceed to create/update/delete entries in the bioscreen even if \code{change} is equal to TRUE. Set to NA for no restriction

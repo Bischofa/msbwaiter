@@ -76,9 +76,20 @@ response_to_data_frame = function(response_data){
   return(data)
 }
 
-# helper function for comparing entries between a sufl data set and the data in the bioscreen
-compare_entries = function(sufl_data, data_from_app, ignore_colnames = c("first_name", "last_name"),
-                           endpoint = "subjects", verbose_b = TRUE, keep_na = FALSE){
+#' Compare a data entry with a data set
+#'
+#' \code{compare_entries} is a helper function for comparing a sufl data entry with data in the bioscreen. See \code{api_check}
+#' and \code{api_check_batch} to see how this helper function is implemented.
+#'
+#' @return
+#' "no action", "create", or "update"
+#'
+#' @seealso \code{\link[jsonlite]{api_check}}, \code{\link{api_check_batch}}
+
+# helper function for comparing entries between a sufl data entry and the data in the bioscreen
+compare_entries = function(sufl_data, data_from_app, endpoint = "subjects",
+                           ignore_colnames = c("first_name", "last_name"),
+                           verbose_b = TRUE, keep_na = FALSE){
 
   if (verbose_b) {
     cat(sprintf("Checking whether %s data (source_id: %s, external_identifier: %s) needs to be created or updated...",
