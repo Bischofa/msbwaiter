@@ -121,7 +121,7 @@ compare_entries = function(sufl_data, data_from_app, endpoint = "subjects",
       for(i in 1:length(app)){
 
         # look at which columns are numbers with decimal places, for these numbers, test near equality
-        if(grepl("\\.[0-9]", sufl[i]) & grepl("\\.[0-9]", app[i])){
+        if(grepl("\\.[0-9]", sufl[i]) & !grepl("[a-z]", sufl[i], ignore.case = TRUE) & grepl("\\.[0-9]", app[i]) & !grepl("[a-z]", app[i], ignore.case = TRUE) ){
 
           nearly_equal[i] = isTRUE(all.equal(as.numeric(app[i]), as.numeric(sufl[i]), tolerance = 1e-2))
 
