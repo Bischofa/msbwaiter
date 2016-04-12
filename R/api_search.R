@@ -4,7 +4,7 @@
 #'
 #' @inheritParams api_get_batch
 #' @param action the HTTP method (GET or POST)
-#' @param search_by_list list of search parameter names and values
+#' @param search_by_list list of search parameter names and values. Set to NULL if performing a batch query (action = GET)
 #'
 #' @seealso \code{\link{api_get}}, \code{\link{api_get_batch}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
 #' @export

@@ -13,7 +13,7 @@ api_search(action, search_by_list = list(source_id = 1, external_identifier =
 \arguments{
 \item{action}{the HTTP method (GET or POST)}
 
-\item{search_by_list}{list of search parameter names and values}
+\item{search_by_list}{list of search parameter names and values. Set to NULL if performing a batch query (action = GET)}
 
 \item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
 "treatments", and "visits".}
