@@ -25,6 +25,6 @@ api_search_by_updated_at = function(updated_at_date = "2015-09-24", updated_at_t
   search_by_list = list(updated_at = (list("$gt" = updated_at)))
 
   # run the query
-  api_search(search_by_list = search_by_list, endpoint = endpoint, base_url = base_url, token = token, verbose_b = verbose_b)
+  api_search(action = POST, search_by_list = search_by_list, endpoint = endpoint, base_url = base_url, token = token, verbose_b = verbose_b)
 
 }

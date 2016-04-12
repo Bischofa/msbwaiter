@@ -23,6 +23,6 @@ api_get = function(source_id = 1, external_identifier = 100, endpoint = "subject
   search_by_list = list(external_identifier = external_identifier, source_id = source_id)
 
   # run the query
-  api_search(search_by_list = search_by_list, endpoint = endpoint, base_url = base_url, token = token, verbose_b = verbose_b)
+  api_search(action = POST, search_by_list = search_by_list, endpoint = endpoint, base_url = base_url, token = token, verbose_b = verbose_b)
 
 }

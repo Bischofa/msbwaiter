@@ -4,12 +4,15 @@
 \alias{api_search}
 \title{General API search function}
 \usage{
-api_search(search_by_list = list(source_id = 1, external_identifier = 1),
-  endpoint = "subjects",
+api_search(action, search_by_list = list(source_id = 1, external_identifier =
+  1), endpoint = "subjects",
   base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-  token = get_token(), verbose_b = TRUE)
+  token = get_token(), verbose_b = TRUE, number_of_pages = NULL,
+  results_per_page = NULL)
 }
 \arguments{
+\item{action}{the HTTP method (GET or POST)}
+
 \item{search_by_list}{list of search parameter names and values}
 
 \item{endpoint}{the data endpoint of interest. Possible values are "subjects", "attacks",
@@ -20,11 +23,16 @@ api_search(search_by_list = list(source_id = 1, external_identifier = 1),
 \item{token}{HTTP authorization token. Default is to get environment variable 'MSBWAITER_TOKEN'.}
 
 \item{verbose_b}{print progress messages as function runs?}
+
+\item{number_of_pages}{number of pages of data to return. If set to NULL (default), all pages are returned.}
+
+\item{results_per_page}{number of results to return per page. If set to NULL (default), the results_per_page query argument
+in the HTTP request header is equal to its default value.}
 }
 \description{
 \code{api_search} returns the bioscreen entries that match the specified search query.
 }
 \seealso{
-\code{\link{api_get}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
+\code{\link{api_get}}, \code{\link{api_get_batch}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
 }
 
