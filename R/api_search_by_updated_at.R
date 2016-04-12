@@ -21,21 +21,10 @@ api_search_by_updated_at = function(updated_at_date = "2015-09-24", updated_at_t
     cat(sprintf("Searching %s updated on or after %s at %s...", endpoint, updated_at_date, updated_at_time))
   }
 
-  # getting url of app
-  url = paste(base_url, endpoint, "search",sep = "/")
+  # create the search list
+  search_by_list = list(updated_at = (list("$gt" = updated_at)))
 
-  # searching data
-  search_by_list = list(list(query = list(updated_at = (list("$gt" = updated_at)))))
-  response_data = api_do_action(action = POST, url = url, token = token, json_body_data = to_json_non_array(search_by_list))
-
-  # check status and return data frame if ok
-  print_when_ok = ifelse(verbose_b, "Done.\n", "")
-  success = return_status(response_data, 200, print_when_ok = print_when_ok)
-
-  if(success) {
-    return(response_to_data_frame(response_data))
-  } else {
-    stop(sprintf("SUFL_API_ERROR: Wrong http status (%d) when searching %s updated after %s", response_data$status_code, endpoint, updated_at))
-  }
+  # run the query
+  api_search(search_by_list = search_by_list, endpoint = endpoint, base_url = base_url, token = token, verbose_b = verbose_b)
 
 }
