@@ -24,4 +24,7 @@ api_search(search_by_list = list(source_id = 1, external_identifier = 1),
 \description{
 \code{api_search} returns the bioscreen entries that match the specified search query.
 }
+\seealso{
+\code{\link{api_get}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
+}
 

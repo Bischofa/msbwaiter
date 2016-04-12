@@ -5,6 +5,7 @@
 #' @inheritParams api_get
 #' @param search_by_list list of search parameter names and values
 #'
+#' @seealso \code{\link{api_get}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
 #' @export
 
 api_search = function(search_by_list = list(source_id = 1, external_identifier = 1),
