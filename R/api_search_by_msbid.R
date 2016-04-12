@@ -14,7 +14,7 @@ api_search_by_msbid = function(msbid = 1, endpoint = "subjects",
                                 token = get_token(), verbose_b = TRUE){
 
   if (verbose_b) {
-    cat(sprintf("Searching %s for msbid = %s...", endpoint, msbid))
+    cat(sprintf("Searching %s for msbid = %s...\n", endpoint, msbid))
   }
 
   # create the search list

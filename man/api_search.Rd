@@ -22,6 +22,6 @@ api_search(search_by_list = list(source_id = 1, external_identifier = 1),
 \item{verbose_b}{print progress messages as function runs?}
 }
 \description{
-General API search function
+\code{api_search} returns the bioscreen entries that match the specified search query.
 }
 

@@ -17,6 +17,7 @@ api_get_batch = function(endpoint = "subjects",
   if (verbose_b) {
     cat(sprintf("###### Fetching %s data... \n", endpoint))
   }
+
   t0 = Sys.time()
 
   # getting url of app and corresponding handler
@@ -60,5 +61,10 @@ api_get_batch = function(endpoint = "subjects",
   if (verbose_b) {
   cat(sprintf("###### Done in %s %s ####\n", round(timediff, 3), units(timediff)))
   }
+
   return(do.call(rbind, all_endpoint_data))
+
 }
+
+
+

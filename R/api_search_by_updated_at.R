@@ -18,7 +18,7 @@ api_search_by_updated_at = function(updated_at_date = "2015-09-24", updated_at_t
   updated_at = paste(updated_at_date, updated_at_time)
 
   if (verbose_b) {
-    cat(sprintf("Searching %s updated on or after %s at %s...", endpoint, updated_at_date, updated_at_time))
+    cat(sprintf("Searching %s updated on or after %s at %s...\n", endpoint, updated_at_date, updated_at_time))
   }
 
   # create the search list

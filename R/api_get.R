@@ -16,7 +16,7 @@ api_get = function(source_id = 1, external_identifier = 100, endpoint = "subject
                    verbose_b = TRUE){
 
   if (verbose_b) {
-    cat(sprintf("Getting entry in %s data (source_id: %s, external_identifier: %s)...", endpoint, source_id, external_identifier))
+    cat(sprintf("Getting entry in %s data (source_id: %s, external_identifier: %s)...\n", endpoint, source_id, external_identifier))
   }
 
   # create the search list
