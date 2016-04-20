@@ -16,13 +16,25 @@ api_get = function(source_id = 1, external_identifier = 100, endpoint = "subject
                    verbose_b = TRUE){
 
   if (verbose_b) {
-    cat(sprintf("Getting entry in %s data (source_id: %s, external_identifier: %s)...\n", endpoint, source_id, external_identifier))
+    cat(sprintf("Getting entry in %s data (source_id: %s, external_identifier: %s)...", endpoint, source_id, external_identifier))
   }
 
-  # create the search list
-  search_by_list = list(external_identifier = external_identifier, source_id = source_id)
+  # getting url of app
+  url = paste(base_url, endpoint, "search",sep = "/")
 
-  # run the query
-  api_search(action = POST, search_by_list = search_by_list, endpoint = endpoint, base_url = base_url, token = token, verbose_b = verbose_b)
+  # searching data
+  search_by_list = list(external_identifier = external_identifier, source_id = source_id)
+  json_query = to_json_non_array(list(list(query = search_by_list)))
+  response_data = api_do_action(action = POST, url = url, token = token, json_body_data = json_query)
+
+  # check status and return data frame if ok
+  print_when_ok = ifelse(verbose_b, "Done.\n", "")
+  success = return_status(response_data, 200, print_when_ok = print_when_ok)
+
+  if(success) {
+    return(response_to_data_frame(response_data))
+  } else {
+    stop(sprintf("SUFL_API_ERROR: Wrong http status (%d) when getting entry in %s data (source_id: %s, external_identifier: %s)", response_data$status_code, endpoint, source_id, external_identifier))
+  }
 
 }

@@ -6,15 +6,15 @@
 #' @param action the HTTP method (GET or POST)
 #' @param search_by_list list of search parameter names and values. Set to NULL if performing a batch query (action = GET)
 #'
-#' @seealso \code{\link{api_get}}, \code{\link{api_get_batch}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
+#' @seealso \code{\link{api_get_batch}}, \code{\link{api_search_by_msid}}, \code{\link{api_search_by_updated_at}}
 #' @export
 
-api_search = function(action,
-                      search_by_list = list(source_id = 1, external_identifier = 1),
-                      endpoint = "subjects",
-                      base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
-                      token = get_token(), verbose_b = TRUE,
-                      number_of_pages = NULL, results_per_page = NULL){
+api_paginate_action = function(action,
+                               search_by_list = list(source_id = 1, external_identifier = 1),
+                               endpoint = "subjects",
+                               base_url = "https://msbioscreen-uat.herokuapp.com/api/v1",
+                               token = get_token(), verbose_b = TRUE,
+                               number_of_pages = NULL, results_per_page = NULL){
 
   t0 = Sys.time()
 

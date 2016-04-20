@@ -19,8 +19,8 @@ api_get_batch = function(endpoint = "subjects",
   }
 
   # get the batch of data
-  api_search(action = GET, search_by_list = NULL, endpoint = endpoint, base_url = base_url, token = token,
-             verbose_b = verbose_b, number_of_pages = number_of_pages, results_per_page = results_per_page)
+  api_paginate_action(action = GET, search_by_list = NULL, endpoint = endpoint, base_url = base_url, token = token,
+                      verbose_b = verbose_b, number_of_pages = number_of_pages, results_per_page = results_per_page)
 
 }
 
