@@ -11,218 +11,60 @@ vignette: >
 
 ## Setting an authorization token
 
-Before interacting with the MS Bioscreen API, a user must have a valid authorization token to access the different API urls.
+Before interacting with the MS Bioscreen API, you must have a valid authorization token to access the various API urls.
 
-* Almost all msbwaiter functions rely on an authorization token. In these functions, `token = get_token()` is the default.
+* Almost all msbwaiter functions rely on an authorization token. In these functions, the parameter `token` is set to `get_token()` as default. 
 
-* `get_token` searches for the environment variable `MSBWAITER_TOKEN`. If not set, it prompts the user for an authorization token.
+* `get_token` conveniently allows you to set a token once at the beginning of an R session. Running `get_token()` returns the value of the environment variable `MSBWAITER_TOKEN`: 
 
-* If the environment variable `MSBWAITER_TOKEN` is not set, `get_token` will prompt the user to enter a token:
-
-```{r}
-
-Sys.unsetenv("MSBWAITER_TOKEN")
-
-# not run
-# get_token()
-# Please enter your authorization token (without quotes): MY_TOKEN
-
-```
-
-* If the user enters an empty token, `get_token` will continue to prompt for a token:
-
-```{r}
-
-Sys.unsetenv("MSBWAITER_TOKEN")
-
-# not run
-# get_token()
-# Please enter your authorization token (without quotes):
-# Sorry, this is an empty token...
-# Please enter your authorization token (without quotes):
-# Sorry, this is an empty token...
-# Please enter your authorization token (without quotes): MY_TOKEN
-
-```
-
-* If the environment variable `MSBWAITER_TOKEN` is set, `get_token` will return the value of `MSBWAITER_TOKEN`:
-
-```{r}
+```{r, eval = FALSE}
 
 Sys.setenv("MSBWAITER_TOKEN" = "MY_TOKEN")
 
-# not run
-# get_token()
+get_token()
 # [1] "MY_TOKEN"
 
 ```
 
-* If the environment variable `MSBWAITER_TOKEN` is set but the user wants to change the value of the token, set `overwrite = TRUE`:
+* If the environment variable `MSBWAITER_TOKEN` is not set, `get_token` will prompt you to enter a token:
 
-```{r}
+```{r, eval = FALSE}
+
+Sys.unsetenv("MSBWAITER_TOKEN")
+
+get_token()
+# Please enter your authorization token (without quotes): MY_TOKEN
+
+```
+
+* If you enter an empty token, `get_token` will continue to prompt you to enter a token:
+
+```{r, eval = FALSE}
+
+Sys.unsetenv("MSBWAITER_TOKEN")
+
+get_token()
+# Please enter your authorization token (without quotes):
+# Sorry, this is an empty token...
+# Please enter your authorization token (without quotes):
+# Sorry, this is an empty token...
+# Please enter your authorization token (without quotes): MY_TOKEN
+
+```
+
+* You can change the value of the environment variable `MSBWAITER_TOKEN` with `overwrite = TRUE`:
+
+```{r, eval = FALSE}
 
 Sys.setenv("MSBWAITER_TOKEN" = "MY_TOKEN")
 
-# not run
-# get_token(overwrite = TRUE)
+get_token(overwrite = TRUE)
 # Current token is:
 # MY_TOKEN
 # Please enter your new authorization token (without quotes), or press enter to keep existing one: NEW_TOKEN
 
-# get_token()
+get_token()
 # [1] "NEW_TOKEN"
-
-```
-
-## Creating
-
-`api_create` is a convenient way to create a single entry in the bioscreen.
-
-* It takes a data frame with 1 row and column names that follow the current [SUFL specification](https://docs.google.com/spreadsheets/d/1SBe_p6EcdPeus1WTvN3UbIvJC1PtI2ntYowSwfAdsEQ/edit?pref=2&pli=1#gid=248464688). The inputed data frame must contain the identifer columns **source_id** and **external_identifier**. For attacks, treatments and visits data, the data frame must also contain the identifier columns **patient_source_id** and **patient_external_identifier**.
-
-* Use the parameter, `endpoint`, to specify where the entry should be created. Possible values are "subjects", "attacks", "treatments", and "visits".
-
-```{r}
-
-# creating a subject
-sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
-                       age_of_onset = 33, relapse_count_onset_to_year_5 = 5)
-
-# not run
-# api_create(sufl_data = sufl_data, endpoint = "subjects", base_url = "BASE_URL", token = get_token())
-
-# creating an attack
-sufl_data = data.frame(source_id = 1, external_identifer = 1, 
-                       patient_source_id = 1, patient_external_identifier = 1,
-                       year = 1999, month = 8, day = 1, optic_neuritis = TRUE)
-
-# not run
-# api_create(sufl_data = sufl_data, endpoint = "attacks", base_url = "BASE_URL", token = get_token())
-
-# creating a treatment
-sufl_data = data.frame(source_id = 1, external_identifer = 1, 
-                       patient_source_id = 1, patient_external_identifier = 1, 
-                       start_date = "2011-02-01", name = "Gilenya")
-
-# not run
-# api_create(sufl_data = sufl_data, endpoint = "treatments", base_url = "BASE_URL", token = get_token())
-
-# creating a visit
-sufl_data = data.frame(source_id = 1, external_identifer = 1, 
-                       patient_source_id = 1, patient_external_identifier = 1, 
-                       date = "2012-02-22", disease_course = "RR", edss = 3)
-
-# not run
-# api_create(sufl_data = sufl_data, endpoint = "visits", base_url = "BASE_URL", token = get_token())
-
-```
-
-## Updating
-
-After an entry has been created, msbwaiter provides `api_update` to update an entry's values.
-
-* As with `api_create`, `api_update` takes a data frame with 1 row, appropriate identifier columns, and column names that follow the current SUFL specification.
-
-* `api_update` uses the identifier columns to find the corresponding entry in the bioscreen and updates that entry with the information in the inputed data frame.
-
-```{r}
-
-sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
-                       age_of_onset = 30, relapse_count_onset_to_year_5 = 3)
-
-# not run
-# api_update(sufl_data = sufl_data, endpoint = "subjects", base_url = "BASE_URL", token = get_token())
-
-
-```
-
-* If there are variables in the bioscreen that should not get updated even if the values in the inputed data frame are different, the user can specify these variables directly with the parameter `ignore_colnames`. The user does not have to remove the columns from the inputed data frame.
-
-```{r}
-
-sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
-                       age_of_onset = 30, relapse_count_onset_to_year_5 = 3)
-
-# with ignore_colnames set to c("gender", "relapse_count_onset_to_year_5"), api_update will not 
-# update the values for gender and relapse_count_onset_to_year_5 in the bioscreen even if those
-# values are not equal to "F" and 3.
-
-# not run
-# api_update(sufl_data = sufl_data, endpoint = "subjects", 
-#            ignore_colnames = c("gender", "relapse_count_onset_to_year_5"), 
-#            base_url = "BASE_URL", token = get_token())
-
-
-```
-
-* `api_update` also allows the user to indicate whether variables with non-missing values in the bioscreen should be overwritten to missing if these variables are set to NA in the inputed data frame. With `keep_na = TRUE`, non-missing values are overwritten to missing (the default is set to `FALSE`).
-
-```{r}
-
-sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
-                       age_of_onset = NA, relapse_count_onset_to_year_5 = 3) # age_of_onset set to NA
-
-# if the value for age_of_onset in the bioscreen should NOT be overwritten to missing even though 
-# age_of_onset is equal to NA in sufl_data, set keep_na to FALSE (default).
-
-# not run
-# api_update(sufl_data = sufl_data, endpoint = "subjects", keep_na = FALSE, 
-#            base_url = "BASE_URL", token = get_token())
-
-# if the value for age_of_onset in the bioscreen should be overwritten to missing even if it is 
-# currently set to a non-missing value in the bioscreen, set keep_na to TRUE.
-
-# api_update(sufl_data = sufl_data, endpoint = "subjects", keep_na = TRUE, 
-#            base_url = "BASE_URL", token = get_token())
-
-```
-
-## Deleting
-
-msbwaiter provides `api_delete` and `api_delete_batch` to delete entries in the bioscreen.
-
-* `api_delete` deletes the entry associated with the specified `source_id`, `external_identifier`, and `endpoint`.
-
-* Note that when `endpoint = "subjects"`, `api_delete` deletes the specified subject along with any attacks, treatments, and visits associated with this subject.
-
-```{r}
-
-# to delete the subject whose source_id = 1 and external_identifier = 1 AND all 
-# associated attacks, treatments, and visits...
-
-# not run
-# api_delete(source_id = 1, external_identifier = 1, endpoint = "subjects", 
-#            base_url = "BASE_URL", token = get_token())
-
-
-# to delete the visit whose source_id = 1 and external_identifier = 1...
-
-# not run
-# api_delete(source_id = 1, external_identifier = 1, endpoint = "visits", 
-#            base_url = "BASE_URL", token = get_token())
-
-```
-
-* `api_delete_batch` deletes all the entries associated with the specified `source_ids` and `endpoint`.
-
-* As with `api_delete`, when `endpoint = "subjects"`, `api_delete_batch` deletes the specified subjects along with any attacks, treatments, and visits associated with these subjects.
-
-* Use `api_delete_batch` with caution!
-
-```{r}
-
-# to delete all the subjects whose source_id = 1 AND all 
-# associated attacks, treatments, and visits...
-
-# not run
-# api_delete_batch(source_ids = 1, endpoint = "subjects", 
-#                  base_url = "BASE_URL", token = get_token())
-
-# to delete all the visits whose source_id = 1...
-
-# not run
-# api_delete_batch(source_ids = 1, endpoint = "visits", 
-#                  base_url = "BASE_URL", token = get_token())
 
 ```
 
@@ -232,156 +74,231 @@ msbwaiter provides a number functions to query specific sets of data from the bi
 
 * `api_paginate_action` is a general function that can be used to search for different sets of data
 
-* When `action = GET`, `api_paginate_action` performs a batch querying, returning all the data associated with the specified `endpoint`. Note that the parameter `search_by_list` is ignored when `action = GET`.
+* When `action = GET`, `api_paginate_action` performs a batch query, returning all the data associated with the specified `endpoint`. Note that the parameter `search_by_list` is ignored when `action = GET`.
 
-```{r}
+```{r, eval = FALSE}
 
 # return all the subjects data currently in the bioscreen
+api_paginate_action(action = GET, endpoint = "subjects")
 
-# not run
-# api_paginate_action(action = GET, endpoint = "subjects", base_url = "BASE_URL", token = get_token())
-
-# Return all the attacks data currently in the bioscreen
-
-# not run
-# api_paginate_action(action = GET, endpoint = "attacks", base_url = "BASE_URL", token = get_token())
+# return all the attacks data currently in the bioscreen
+api_paginate_action(action = GET, endpoint = "attacks")
 
 ```
 
 * When `action = POST`, `api_paginate_action` searches for the data that matches the specified `search_by_list`, a list of search parameter names and values.
 
-```{r}
+```{r, eval = FALSE}
 
-# to search for the subjects where source_id = 1 and external_identifier = 1...
+# to search for the subject whose source_id = 1 and external_identifier = 1...
 search_by_list = list(source_id = 1, external_identifier = 1)
-
-# not run
-# api_paginate_action(action = POST, search_by_list = search_by_list, endpoint = "subjects",
-#                     base_url = "BASE_URL", token = get_token())
+api_paginate_action(action = POST, search_by_list = search_by_list, endpoint = "subjects")
   
 ```
 
 * Use the parameters `number_of_pages` and `results_per_page` to limit the amount of data that is returned
 
-```{r}
+```{r, eval = FALSE}
 
 # get only the first 2 pages of attacks data...
-
-# not run
-# api_paginate_action(action = GET, endpoint = "attacks", base_url = "BASE_URL", token = get_token(), 
-#                     number_of_pages = 2)
+api_paginate_action(action = GET, endpoint = "attacks", number_of_pages = 2)
 
 # speed up how long it takes to fetch each page by setting results_per_page to 100...
-
-# not run
-# api_paginate_action(action = GET, endpoint = "attacks", base_url = "BASE_URL", token = get_token(), 
-#                     results_per_page = 100)
+api_paginate_action(action = GET, endpoint = "attacks", results_per_page = 100)
 
 # get the first 200 entries of attacks data in multiple ways...
-
-# not run
-# api_paginate_action(action = GET, endpoint = "attacks", base_url = "BASE_URL", token = get_token(), 
-#                     number_of_pages = 2, results_per_page = 100)
-# api_paginate_action(action = GET, endpoint = "attacks", base_url = "BASE_URL", token = get_token(), 
-#                     number_of_pages = 1, results_per_page = 200)
+api_paginate_action(action = GET, endpoint = "attacks", number_of_pages = 2, results_per_page = 100)
+api_paginate_action(action = GET, endpoint = "attacks", number_of_pages = 1, results_per_page = 200)
 
 ```
 
-* `api_get_batch` performs a batch query, returning all the data associated with the specified endpoint. It is essentially an `api_paginate_action` with `action = GET`.
+* `api_get_batch` performs a batch query, returning all the data associated with the specified endpoint. It essentially runs `api_paginate_action` with `action = GET`.
 
-* As with `api_paginate_action`, the user can set `number_of_pages` and `results_per_page` to limit the amount of data that is returned.
+* As in `api_paginate_action`, you can set `number_of_pages` and `results_per_page` to limit the amount of data that is returned.
 
-```{r}
+```{r, eval = FALSE}
 
 # get all the subjects data
-
-# not run
-# api_get_batch(endpoint = "subjects", base_url = "BASE_URL", token = get_token())
+api_get_batch(endpoint = "subjects")
 
 # get the first 3 pages of treatments data
-
-# not run
-# api_get_batch(endpoint = "treatments", base_url = "BASE_URL", token = get_token(), 
-#               number_of_pages = 3)
+api_get_batch(endpoint = "treatments", number_of_pages = 3)
 
 # get the first 800 entries of visits data
-
-# not run
-# api_get_batch(endpoint = "visits", base_url = "BASE_URL", token = get_token(), 
-#               number_of_pages = 4, results_per_page = 200)
+api_get_batch(endpoint = "visits", number_of_pages = 4, results_per_page = 200)
 
 ```
 
 * `api_get` returns the data associated with the specified `source_id`, `external_identifier`, and `endpoint`. `api_get` will always return 1 row of data.
 
-```{r}
+```{r, eval = FALSE}
 
 # get the attack where source_id = 1 and external_identifier = 1
-
-# not run
-# api_get(source_id = 1, external_identifier = 1, endpoint = "attacks", 
-#         base_url = "BASE_URL", token = get_token())
+api_get(source_id = 1, external_identifier = 1, endpoint = "attacks")
 
 ```
 
 * `api_search_by_msbid` returns the entries associated with the specified `msbid` and `endpoint`.
 
-```{r}
+```{r, eval = FALSE}
 
 # get all the treatments for the subject whose msbid = 28
-
-# api_search_by_msbid(msbid = 28, endpoint = "treatments", 
-#                     base_url = "BASE_URL", token = get_token())
+api_search_by_msbid(msbid = 28, endpoint = "treatments")
 
 ```
 
 * `api_search_by_updated_at` returns the entries updated on or after the specified `updated_at_date` and `updated_at_time`.
 
-```{r}
+```{r, eval = FALSE}
 
 # get all the visits updated on or after 2015-12-01 at midnight
+api_search_by_updated_at(updated_at_date = "2015-12-01", updated_at_time = "00:00:00", 
+                         endpoint = "visits")
 
-# not run
-# api_search_by_updated_at(updated_at_date = "2015-12-01", updated_at_time = "00:00:00", 
-#                          endpoint = "visits", base_url = "BASE_URL", token = get_token())
+```
+
+## Creating
+
+You can use `api_create` to easily create a new entry in the bioscreen.
+
+* `api_create` takes `sufl_data` as an input. `sufl_data` is a data frame with 1 row and column names that follow the current [SUFL specification](https://docs.google.com/spreadsheets/d/1SBe_p6EcdPeus1WTvN3UbIvJC1PtI2ntYowSwfAdsEQ/edit?pref=2&pli=1#gid=248464688). At minimum, `sufl_data` must contain the identifer columns **source_id** and **external_identifier**. For attacks, treatments and visits data, `sufl_data` must also contain the identifier columns **patient_source_id** and **patient_external_identifier**.
+
+```{r, eval = FALSE}
+
+# creating a subject
+sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
+                       age_of_onset = 33, relapse_count_onset_to_year_5 = 5)
+api_create(sufl_data = sufl_data, endpoint = "subjects")
+
+# creating an attack
+sufl_data = data.frame(source_id = 1, external_identifer = 1, 
+                       patient_source_id = 1, patient_external_identifier = 1,
+                       year = 1999, month = 8, day = 1, optic_neuritis = TRUE)
+api_create(sufl_data = sufl_data, endpoint = "attacks")
+
+# creating a treatment
+sufl_data = data.frame(source_id = 1, external_identifer = 1, 
+                       patient_source_id = 1, patient_external_identifier = 1, 
+                       start_date = "2011-02-01", name = "Gilenya")
+api_create(sufl_data = sufl_data, endpoint = "treatments")
+
+# creating a visit
+sufl_data = data.frame(source_id = 1, external_identifer = 1, 
+                       patient_source_id = 1, patient_external_identifier = 1, 
+                       date = "2012-02-22", disease_course = "RR", edss = 3)
+api_create(sufl_data = sufl_data, endpoint = "visits")
+
+```
+
+## Updating
+
+msbwaiter provides `api_update` to update an existing bioscreen entry's values.
+
+* `api_update` uses the identifier columns in `sufl_data` to find the corresponding entry in the bioscreen and updates that entry with the values in `sufl_data`.
+
+```{r, eval = FALSE}
+
+sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
+                       age_of_onset = 30, relapse_count_onset_to_year_5 = 3)
+api_update(sufl_data = sufl_data, endpoint = "subjects")
+
+```
+
+* However, if you want to ensure that certain variables do not get updated in the bioscreen even if their values differ from those in `sufl_data`, use `ignore_colnames` to specify those variables. Specifying these variables with `ignore_colnames` is an alternative to removing these columns entirely from `sufl_data`.
+
+```{r, eval = FALSE}
+
+sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
+                       age_of_onset = 30, relapse_count_onset_to_year_5 = 3)
+
+# with ignore_colnames set to c("gender", "relapse_count_onset_to_year_5"), api_update will not 
+# update the values for gender and relapse_count_onset_to_year_5 in the bioscreen even if those
+# values are not equal to "F" and 3.
+api_update(sufl_data = sufl_data, endpoint = "subjects", 
+           ignore_colnames = c("gender", "relapse_count_onset_to_year_5"))
+
+```
+
+* You can also specify whether variables with non-missing values in the bioscreen should be overwritten to missing if these variables are equal to NA in `sufl_data`. With `keep_na = TRUE`, non-missing values can be overwritten to missing (the default is set to `FALSE`).
+
+```{r, eval = FALSE}
+
+sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
+                       age_of_onset = NA, relapse_count_onset_to_year_5 = 3)
+
+# if the value for age_of_onset in the bioscreen should NOT be overwritten to missing even though 
+# age_of_onset is equal to NA in sufl_data, set keep_na to FALSE (default).
+api_update(sufl_data = sufl_data, endpoint = "subjects", keep_na = FALSE)
+
+# if the value for age_of_onset in the bioscreen should be overwritten to missing even if it is 
+# currently non-missing value in the bioscreen, set keep_na to TRUE.
+api_update(sufl_data = sufl_data, endpoint = "subjects", keep_na = TRUE)
+
+```
+
+## Deleting
+
+msbwaiter provides `api_delete` and `api_delete_batch` to delete entries in the bioscreen. Use these functions with caution!
+
+* `api_delete` deletes the entry associated with the specified `source_id`, `external_identifier`, and `endpoint`.
+
+* Note that when `endpoint = "subjects"`, `api_delete` deletes the specified subject along with any attacks, treatments, and visits associated with this subject.
+
+```{r, eval = FALSE}
+
+# to delete the subject whose source_id = 1 and external_identifier = 1 AND all 
+# attacks, treatments, and visits associated with this subject...
+api_delete(source_id = 1, external_identifier = 1, endpoint = "subjects")
+
+# to delete the visit whose source_id = 1 and external_identifier = 1...
+api_delete(source_id = 1, external_identifier = 1, endpoint = "visits")
+
+```
+
+* `api_delete_batch` deletes all the entries associated with the specified `source_ids` and `endpoint`.
+
+* As with `api_delete`, when `endpoint = "subjects"`, `api_delete_batch` deletes the specified subjects along with any attacks, treatments, and visits associated with these subjects.
+
+```{r, eval = FALSE}
+
+# to delete all the subjects whose source_id = 1 AND all 
+# attacks, treatments, and visits associated with these subjects...
+api_delete_batch(source_ids = 1, endpoint = "subjects")
+
+# to delete all the visits whose source_id = 1...
+api_delete_batch(source_ids = 1, endpoint = "visits")
 
 ```
 
 ## Querying before creating, updating, or deleting
 
-`api_check` and `api_check_batch` are smart ways to interact with the bioscreen. These functions check what data is already present in the bioscreen before proceeding to create, update, and delete entries.
+`api_check` and `api_check_batch` allow you to interact with the bioscreen API in a smart way. These functions check what data is already present in the bioscreen before proceeding to create, update, or delete entries.
 
-* `api_check` is used for creating or updating a single bioscreen entry. As with `api_create` and `api_update`, `api_check` takes a data frame with 1 row, appropriate identifier columns, and column names that follow the current SUFL specification.
+* Use `api_check` for creating or updating a single bioscreen entry. Like `api_create` and `api_update`, `api_check` takes `sufl_data` as an input.
 
-* `api_check` uses the identifier columns of the inputed data frame to find the corresponding entry in the bioscreen. If no corresponding entry exists, `api_check` knows it needs to "create" a new entry. If a corresponding entry exists but the values between the inputed data frame and the corresponding entry in the bioscreen are different, `api_check` knows that it needs to "update" the entry. If the values between the inputed data frame and the corresponding entry in the bioscreen are identical, `api_check` knows it needs to perform "no action".
+* `api_check` uses the identifier columns of `sufl_data` to find the corresponding entry in the bioscreen. If no corresponding entry exists, `api_check` determines it needs to create that entry. If a corresponding entry exists but the values between `sufl_data` and the corresponding entry do not match, `api_check` determines it needs to update that entry. If the values between `sufl_data` and the corresponding entry do match, `api_check` returns "no action".
 
-* When `change = TRUE`, `api_check` proceeds to actually create or update the entry. When `change = FALSE`, `api_check` simply returns a character string that is equal to either "create", "update", or "no action".
+* When `change = TRUE`, `api_check` proceeds to actually create or update the entry or return "no action". When `change = FALSE`, `api_check` simply returns a character string that is equal to either "create", "update", or "no action".
 
-```{r}
-
-# checking if the subject with source_id = 1 and external_identifier = 1 needs to 
-# be created, updated, or if the most recent data is already present in the bioscreen
+```{r, eval = FALSE}
 
 sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
                        age_of_onset = 33, relapse_count_onset_to_year_5 = 5)
 
+# checking if the subject with source_id = 1 and external_identifier = 1 needs to 
+# be created, updated, or if the most recent data is already present in the bioscreen
 
 # ...without actually creating or updating the entry
-
-# not run
-# api_check(sufl_data = sufl_data, endpoint = "subjects", base_url = "BASE_URL", token = get_token(), change = FALSE)
+api_check(sufl_data = sufl_data, endpoint = "subjects", change = FALSE)
 
 # ...actually creating or updating the entry if necessary
-
-# not run
-# api_check(sufl_data = sufl_data, endpoint = "subjects", base_url = "BASE_URL", token = get_token(), change = TRUE)
+api_check(sufl_data = sufl_data, endpoint = "subjects", change = TRUE)
 
 ```
 
-* `api_check` has the parameters `ignore_columnames` and `keep_na` available to detail what variables should be taken into consideration when determining whether an entry needs to be updated. See `api_update` for more details.
+* Like `api_update`, `api_check` has the parameters `ignore_columnames` and `keep_na` available to detail what variables should be taken into consideration when determining whether an entry needs to be updated.
 
-```{r}
-
+```{r, eval = FALSE}
 
 sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F", 
                        age_of_onset = NA, relapse_count_onset_to_year_5 = 3)
@@ -390,62 +307,82 @@ sufl_data = data.frame(source_id = 1, external_identifer = 1, gender = "F",
 # ignore the values for gender and relapse_count_onset_to_year_5 when determining whether
 # the entry needs to be updated. api_check will not update these values in the bioscreen when
 # change = TRUE.
-
-# not run
-# api_check(sufl_data = sufl_data, endpoint = "subjects", 
-#           ignore_colnames = c("gender", "relapse_count_onset_to_year_5"), 
-#           base_url = "BASE_URL", token = get_token())
+api_check(sufl_data = sufl_data, endpoint = "subjects", 
+          ignore_colnames = c("gender", "relapse_count_onset_to_year_5"))
 
 # with keep_na set to FALSE (default), api_check will ignore age_of_onset when determing whether
 # the entry needs to be updated. api_check will NOT overwrite age_of_onset to missing in the bioscreen
 # when change = TRUE.
-
-# not run
-# api_check(sufl_data = sufl_data, endpoint = "subjects", keep_na = FALSE, 
-#           base_url = "BASE_URL", token = get_token())
+api_check(sufl_data = sufl_data, endpoint = "subjects", keep_na = FALSE)
 
 # with keep_na set to TRUE, api_check will consider age_of_onset when determing whether
 # the entry needs to be updated. If age_of_onset is non-missing in the bioscreen, api_check
 # will determine that the entry needs to be updated. api_check will overwrite age_of_onset to missing
 # when change = TRUE.
-
-# api_check(sufl_data = sufl_data, endpoint = "subjects", keep_na = TRUE, 
-#           base_url = "BASE_URL", token = get_token())
+api_check(sufl_data = sufl_data, endpoint = "subjects", keep_na = TRUE)
 
 ```
 
-* `api_check_batch` works similarly to `api_check`. It takes a data frame with appropriate identifier columns and column names that follow the current SUFL specification. However, unlike `api_check`, `api_check_batch` can take a data frame with an unlimited number of rows. msbwaiter provides `api_check_batch` to create, update, and delete multiple bioscreen entries at once.
+* `api_check_batch` works similarly to `api_check`. It takes a data frame with appropriate identifier columns and column names that follow the current SUFL specification. However, unlike `api_check`, `api_check_batch` takes a data frame, called `sufl_batch`, with an unlimited number of rows. msbwaiter provides `api_check_batch` to create, update, and delete multiple bioscreen entries at once.
 
-* `api_check_batch` finds the entries that correspond to each of the entries in the inputed data frame and similar to `api_check`, performs a comparison on each entry. For each entry, `api_check_batch` returns either "create", "update", or "no action". When `change = TRUE`, `api_check_batch` proceeds to create and update entries.
+* `api_check_batch` finds the entries that correspond to each of the entries in `sufl_batch` and, similarly to `api_check`, performs a comparison on each entry. For each entry, `api_check_batch` returns either "create", "update", or "no action". When `change = TRUE`, `api_check_batch` proceeds to create and update entries.
 
 * Like `api_check`, `api_check_batch` has the paramters `ignore_columnames` and `keep_na` available to detail what variables should be taken into consideration when determining which entries need to be updated.
 
-```{r}
+```{r, eval = FALSE}
 
-sufl_data = data.frame(source_id = c(1,1,3), external_identifer = c(1, 2,100), 
+sufl_batch = data.frame(source_id = c(1,1,3), external_identifer = c(1, 2,100), 
                        gender = c("F", "M", "F"), age_of_onset = c(NA, 19, 35), 
                        relapse_count_onset_to_year_5 = c(3, 4, 2))
 
+# check to see if any of the entries in sufl_batch exist in the bioscreen
+# create the entries if they do not exist, update the entries if the values
+# are different
+api_check_batch(sufl_batch, endpoint, change = TRUE)
 
+# with ignore_columnames = c("gender"), api_check_batch will not update
+# gender even if the value for gender in the bioscreen is different than
+# that in sufl_batch
+api_check_batch(sufl_batch, endpoint, ignore_colnames = c("gender"), change = TRUE)
+
+# with keep_na = TRUE, sufl_batch will overwrite any non-missing values 
+# in the bioscreen to missing if that value = NA in sufl_batch 
+api_check_batch(sufl_batch, endpoint, keep_na = TRUE, change = TRUE)
 
 ```
 
 * Unique to `api_check_batch` are the parameters `destructive`, `max_update`, and `max_delete`
 
-* When `change = TRUE` and `destructive = TRUE`, `api_check_batch` will delete any entries in the bioscreen that are not found in the inputed data frame but that have a source_id that is found in the inputed data frame.
+* When `change = TRUE` and `destructive = TRUE`, `api_check_batch` will delete any entries in the bioscreen that are not found in `sufl_batch` but that have a source_id that is found in `sufl_batch`.
 
-```{r}
+```{r, eval = FALSE}
+
+sufl_batch = data.frame(source_id = c(1,1,3), external_identifer = c(1, 2,100), 
+                       gender = c("F", "M", "F"), age_of_onset = c(NA, 19, 35), 
+                       relapse_count_onset_to_year_5 = c(3, 4, 2))
+
+# with destructive = TRUE, api_check_batch will delete any entries in the bioscreen
+# that have a source_id that is found in sufl_batch but whose external_identifier 
+# is not found in sufl_batch
+api_check_batch(sufl_batch, endpoint, change = TRUE, destructive = TRUE)
 
 ```
 
 * `max_update` and `max_delete` are safety parameters. If `change = TRUE` but the the number of entries to update exceeds `max_update`, `api_check_batch` will not proceed to create, update, or delete entries. Similarly, if `change = TRUE` and `destructive = TRUE` but the the number of entries to delete exceeds `max_delete`, `api_check_batch` will not proceed to create, update, or delete entries.
 
-```{r}
+```{r, eval = FALSE}
 
+sufl_batch = data.frame(source_id = c(1,1,3), external_identifer = c(1, 2,100), 
+                       gender = c("F", "M", "F"), age_of_onset = c(NA, 19, 35), 
+                       relapse_count_onset_to_year_5 = c(3, 4, 2))
 
+# with max_update = 2, api_check_batch will not proceed to create, update, or delete
+# entries if more than 2 entries in the bioscreen need to be updated.
+api_check_batch(sufl_batch, endpoint, change = TRUE, max_update = 2)
+
+# with max_delete = 5, api_check_batch will not proceed to create, update, or delete
+# entries if more than 5 entries in the bioscreen need to be updated.
+api_check_batch(sufl_batch, endpoint, change = TRUE, destructive = TRUE, max_delete = 5)
 
 ```
-
-
-
 
